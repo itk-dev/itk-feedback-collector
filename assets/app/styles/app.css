@@ -103,3 +103,34 @@ a:hover {
     outline: none;
     box-shadow: var(--shadow-focus);
 }
+
+/* ---- Symfony form components ---- */
+form label {
+    @apply block text-sm font-medium text-ink-soft mb-1;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="url"],
+form input[type="password"],
+form input[type="number"],
+form input[type="tel"],
+form textarea,
+form select {
+    @apply w-full px-3 py-2 border border-slate-300 rounded-2 text-base text-ink bg-paper mb-4;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    @apply border-primary;
+    box-shadow: var(--shadow-focus);
+}
+
+form button[type="submit"] {
+    @apply bg-primary text-paper px-5 py-2 rounded-2 font-medium cursor-pointer border-none;
+}
+
+form button[type="submit"]:hover {
+    @apply bg-primary-hover;
+}

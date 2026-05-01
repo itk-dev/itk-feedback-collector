@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FeedbackController extends AbstractController
 {
@@ -18,7 +19,7 @@ class FeedbackController extends AbstractController
 
         $websiteId = $request->query->get('website');
         if ($websiteId) {
-            return $this->redirectToRoute('app_feedback_list', ['id' => $websiteId]);
+            return $this->redirectToRoute('app_website_show', ['id' => $websiteId]);
         }
 
         return $this->render('feedback/index.html.twig', [
@@ -26,8 +27,8 @@ class FeedbackController extends AbstractController
         ]);
     }
 
-    #[Route('/website/{id}/feedback', name: 'app_feedback_list')]
-    public function list(string $id, WebsiteRepository $websiteRepository, FeedbackRepository $feedbackRepository): Response
+    #[Route('/website/{id}', name: 'app_website_show')]
+    public function show(string $id, WebsiteRepository $websiteRepository, FeedbackRepository $feedbackRepository): Response
     {
         $website = $websiteRepository->find($id);
 
@@ -35,10 +36,12 @@ class FeedbackController extends AbstractController
             throw $this->createAccessDeniedException('Access denied.');
         }
 
-        $feedbacks = $feedbackRepository->findBy(['website' => $website]);
+        $apiEndpoint = $this->generateUrl('app_api_feedback', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $feedbacks = $feedbackRepository->findBy(['website' => $website], ['createdAt' => 'DESC']);
 
-        return $this->render('feedback/list.html.twig', [
+        return $this->render('website/show.html.twig', [
             'website' => $website,
+            'apiEndpoint' => $apiEndpoint,
             'feedbacks' => $feedbacks,
         ]);
     }
