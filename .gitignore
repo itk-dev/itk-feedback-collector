@@ -1,4 +1,7 @@
 
+/node_modules/
+/public/build/
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
