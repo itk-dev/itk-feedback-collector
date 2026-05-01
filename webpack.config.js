@@ -21,6 +21,8 @@ Encore.setOutputPath("public/build/app/")
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = "usage";
         config.corejs = 3;
-    });
+    })
+
+    .enablePostCssLoader();
 
 module.exports = Encore.getWebpackConfig();

@@ -3,13 +3,17 @@
 {% block title %}Create Website{% endblock %}
 
 {% block body %}
-    <h1>Create Website</h1>
+    <h1 class="text-2xl font-bold text-ink mb-5">Create Website</h1>
 
     {% for flash in app.flashes('success') %}
-        <p style="color: green;">{{ flash }}</p>
+        <div class="bg-green/10 border border-green/30 text-green rounded-2 px-4 py-3 mb-4">
+            {{ flash }}
+        </div>
     {% endfor %}
 
-    {{ form(form) }}
+    <div class="bg-paper rounded-3 shadow-2 p-5 max-w-lg">
+        {{ form(form) }}
+    </div>
 
-    <p><a href="{{ path('app_index') }}">Back to website selection</a></p>
+    <p class="mt-5"><a href="{{ path('app_index') }}">Back to website selection</a></p>
 {% endblock %}
