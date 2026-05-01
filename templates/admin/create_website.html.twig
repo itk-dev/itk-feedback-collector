@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Website{% endblock %}
+
+{% block body %}
+    <h1>Create Website</h1>
+
+    {% for flash in app.flashes('success') %}
+        <p style="color: green;">{{ flash }}</p>
+    {% endfor %}
+
+    {{ form(form) }}
+
+    <p><a href="{{ path('app_index') }}">Back to website selection</a></p>
+{% endblock %}
