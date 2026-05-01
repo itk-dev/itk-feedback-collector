@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Feedback;
 use App\Repository\WebsiteRepository;
+use App\Service\FeedbackRateLimiter;
+use App\Service\OriginValidator;
+use App\Service\PayloadValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,35 +21,53 @@ class ApiController extends AbstractController
         Request $request,
         WebsiteRepository $websiteRepository,
         EntityManagerInterface $entityManager,
+        PayloadValidator $payloadValidator,
+        OriginValidator $originValidator,
+        FeedbackRateLimiter $rateLimiter,
     ): JsonResponse {
-        $content = json_decode($request->getContent(), true);
+        if ($payloadValidator->isPayloadTooLarge((int) $request->headers->get('Content-Length', 0))) {
+            return $this->json(['error' => 'Payload too large.'], Response::HTTP_REQUEST_ENTITY_TOO_LARGE);
+        }
 
-        if (!is_array($content) || empty($content['apiKey'])) {
+        $content = $payloadValidator->parseJson($request->getContent());
+        if (null === $content) {
+            return $this->json(['error' => 'Invalid JSON.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!$payloadValidator->hasValidApiKey($content)) {
             return $this->json(['error' => 'Missing API key.'], Response::HTTP_BAD_REQUEST);
         }
 
         $website = $websiteRepository->findOneBy(['apiKey' => $content['apiKey']]);
-
         if (!$website) {
             return $this->json(['error' => 'Invalid API key.'], Response::HTTP_FORBIDDEN);
         }
 
-        // Origin check as secondary validation
-        $origin = $request->headers->get('Origin');
-        if ($origin) {
-            $registeredHost = parse_url($website->getUrl(), PHP_URL_HOST);
-            $originHost = parse_url($origin, PHP_URL_HOST);
-
-            if ($registeredHost && $originHost && $registeredHost !== $originHost) {
-                return $this->json(['error' => 'Origin not allowed.'], Response::HTTP_FORBIDDEN);
-            }
+        if (!$rateLimiter->isAllowed($website->getApiKey())) {
+            return $this->json(['error' => 'Too many requests.'], Response::HTTP_TOO_MANY_REQUESTS);
         }
 
-        $data = $content['data'] ?? [];
+        $origin = $request->headers->get('Origin');
+        if ($origin && !$originValidator->isOriginAllowedForWebsite($origin, $website)) {
+            return $this->json(['error' => 'Origin not allowed.'], Response::HTTP_FORBIDDEN);
+        }
+
+        // Everything except apiKey is feedback data
+        $data = $content;
+        unset($data['apiKey']);
+
+        $dataError = $payloadValidator->validateData(['data' => $data]);
+        if (null !== $dataError) {
+            $status = str_contains($dataError, 'too large') ? Response::HTTP_REQUEST_ENTITY_TOO_LARGE : Response::HTTP_BAD_REQUEST;
+
+            return $this->json(['error' => $dataError], $status);
+        }
+
+        $data = $payloadValidator->sanitizeData($data);
 
         $feedback = new Feedback();
         $feedback->setWebsite($website);
-        $feedback->setData(is_array($data) ? $data : []);
+        $feedback->setData($data);
         $entityManager->persist($feedback);
         $entityManager->flush();
 

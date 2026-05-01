@@ -76,3 +76,33 @@ No additional CSS file is needed — styles are bundled into the JavaScript file
 - Keyboard shortcuts: `Shift+C` (open), `Ctrl+Enter` (submit), `Escape`
   (cancel)
 - Email address remembered in localStorage
+
+## Security
+
+The widget uses a client-side API key to authenticate feedback submissions.
+Since the key is visible in the page source, it cannot be treated as a secret.
+A determined attacker could extract the key and submit feedback from anywhere.
+This is an accepted trade-off for client-side feedback tools (the same model
+used by Siteimprove, Google Analytics, etc.).
+
+The following measures are in place to limit abuse:
+
+- **Rate limiting** — Each API key is limited to 10 requests per minute
+  (sliding window). Exceeding the limit returns `429 Too Many Requests`.
+  See [`config/packages/rate_limiter.yaml`](config/packages/rate_limiter.yaml)
+  and [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
+- **Origin validation** — The `Origin` header is checked against the registered
+  website URL. Requests from unrecognized origins are rejected. Browsers enforce
+  this header and it cannot be spoofed from client-side code.
+  See [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
+- **CORS restriction** — The `Access-Control-Allow-Origin` header only reflects
+  origins that match a registered website domain, rather than allowing `*`. This
+  prevents other websites from making cross-origin requests with the API key.
+  See [`src/EventSubscriber/CorsSubscriber.php`](src/EventSubscriber/CorsSubscriber.php).
+- **Payload validation** — Requests are rejected if the total payload exceeds
+  5 MB, the `data` field exceeds 2 MB, or the JSON is malformed. All string
+  values in the data are stripped of HTML tags.
+  See [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
+- **Write-only access** — The API key only permits creating feedback entries.
+  It cannot be used to read, update, or delete data.
+  See [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
