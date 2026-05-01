@@ -19,6 +19,9 @@ class Website
     private ?Uuid $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $apiKey = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $url = null;
 
     #[ORM\Column(length: 255)]
@@ -49,6 +52,25 @@ class Website
     public function setWebsiteId(string $websiteId): static
     {
         $this->websiteId = $websiteId;
+
+        return $this;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): static
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    public function generateApiKey(): static
+    {
+        $this->apiKey = Uuid::v4()->toRfc4122();
 
         return $this;
     }

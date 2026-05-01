@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Website: {{ website.websiteId }}{% endblock %}
+
+{% block body %}
+    <h1>{{ website.websiteId }}</h1>
+
+    {% for flash in app.flashes('success') %}
+        <p style="color: green;">{{ flash }}</p>
+    {% endfor %}
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>URL</th>
+            <td>{{ website.url }}</td>
+        </tr>
+        <tr>
+            <th>API Key</th>
+            <td><code>{{ website.apiKey }}</code></td>
+        </tr>
+        <tr>
+            <th>Created</th>
+            <td>{{ website.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </table>
+
+    <h2>Embed Script</h2>
+    <p>Add this snippet to the website's HTML to enable the feedback widget:</p>
+    <pre><code>&lt;script src="{{ apiEndpoint | replace({'/api/feedback': ''}) }}/build/widget/widget.js"
+        data-endpoint="{{ apiEndpoint }}"
+        data-api-key="{{ website.apiKey }}"&gt;&lt;/script&gt;</code></pre>
+
+    <p>
+        <a href="{{ path('app_feedback_list', {id: website.id}) }}">View feedback</a> |
+        <a href="{{ path('app_admin_website_create') }}">Create another website</a> |
+        <a href="{{ path('app_index') }}">Back to home</a>
+    </p>
+{% endblock %}

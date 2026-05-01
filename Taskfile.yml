@@ -69,6 +69,27 @@ tasks:
         cmds:
             - "{{.DOCKER_COMPOSE}} run --rm prettier --write ."
 
+    npm-install:
+        desc: Install Node.js dependencies
+        cmds:
+            - "{{.DOCKER_COMPOSE}} run --rm node npm install --legacy-peer-deps"
+
+    build-app:
+        desc: Build app assets
+        cmds:
+            - "{{.DOCKER_COMPOSE}} run --rm node npx encore production"
+
+    build-widget:
+        desc: Build widget assets
+        cmds:
+            - "{{.DOCKER_COMPOSE}} run --rm node npx encore production --config webpack.widget.config.js"
+
+    build:
+        desc: Build all assets
+        cmds:
+            - task: build-app
+            - task: build-widget
+
     ci:
         desc: Run all coding standards checks
         cmds:

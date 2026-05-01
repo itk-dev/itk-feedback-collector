@@ -24,6 +24,7 @@ class WebsiteFixtures extends Fixture
             $website = new Website();
             $website->setUrl($url);
             $website->setWebsiteId($websiteId);
+            $website->generateApiKey();
             $manager->persist($website);
             $this->addReference($reference, $website);
         }

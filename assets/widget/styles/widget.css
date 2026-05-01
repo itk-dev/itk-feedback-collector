@@ -1,0 +1,350 @@
+/* Base — shadow DOM does not inherit font from the host page */
+:host {
+    font-family:
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+    line-height: 1.5;
+}
+
+/* Bootstrap replacements */
+.form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+}
+
+textarea.form-control {
+    min-height: calc(4 * 1.5em + 1rem);
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-primary-700);
+    box-shadow: 0 0 0 3px hsla(252, 55%, 46%, 0.15);
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+/* Widget styles */
+.tidy-feedback-start {
+    position: fixed;
+    top: var(--position-top);
+    right: 0;
+    transform: rotate(-90deg);
+    transform-origin: right bottom;
+    z-index: var(--z-index-form);
+    display: flex;
+    box-shadow: var(--shadow-md);
+    border-top-left-radius: var(--radius-base);
+    border-top-right-radius: var(--radius-base);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    overflow: hidden;
+}
+
+.tidy-feedback-start[hidden] {
+    display: none;
+}
+
+.tidy-feedback-start-count,
+.tidy-feedback-start-add {
+    border: none;
+    color: var(--color-text-light);
+    font: inherit;
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    padding: var(--spacer-sm) var(--spacer-md);
+    transition: background-color 0.2s ease;
+}
+
+.tidy-feedback-start-count {
+    background-color: var(--color-primary);
+    border-top-left-radius: var(--radius-base);
+}
+
+.tidy-feedback-start-count:hover {
+    background-color: var(--color-primary-300);
+}
+
+.tidy-feedback-start-add {
+    background-color: var(--color-primary-300);
+    border-left: 1px solid hsla(0, 0%, 100%, 0.2);
+    border-top-right-radius: var(--radius-base);
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* When count button is hidden, give the add button full border-radius */
+.tidy-feedback-start-count[hidden] + .tidy-feedback-start-add {
+    border-left: none;
+    border-top-left-radius: var(--radius-base);
+}
+
+.tidy-feedback-start-add:hover {
+    background-color: var(--color-primary);
+}
+
+.tidy-feedback-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25em;
+    height: 1.25em;
+    padding: 0 0.35em;
+    font-size: 0.75em;
+    font-weight: bold;
+    line-height: 1;
+    color: white;
+    background-color: var(--color-danger-300);
+    border-radius: 999px;
+}
+
+/* Items-only panel header */
+.tidy-feedback-items-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacer-sm);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+}
+
+.tidy-feedback-items-header .btn-cancel {
+    padding: var(--spacer-xs) var(--spacer-sm);
+    font-size: 1.4em;
+    line-height: 1;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-gray-600);
+}
+
+.tidy-feedback-items-header .btn-cancel:hover {
+    color: var(--color-text-dark);
+}
+
+.tidy-feedback-form {
+    position: fixed;
+    width: var(--width-base);
+    max-width: 100%;
+    top: var(--position-top);
+    right: 0;
+    padding: 2em 1.25em 1.25em;
+    z-index: var(--z-index-form);
+    background-color: white;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-dark);
+    overflow: hidden;
+    transition:
+        border-radius 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.tidy-feedback-form.at-edge-right {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.tidy-feedback-form.at-edge-left {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.tidy-feedback-form.at-edge-top {
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.tidy-feedback-form.at-edge-bottom {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.tidy-feedback-draggable-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1em;
+    cursor: move;
+    background-color: var(--color-gray-100);
+    border: none;
+    border-top-left-radius: var(--radius-base);
+    border-top-right-radius: var(--radius-base);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    place-content: center;
+    place-items: center;
+}
+
+.tidy-feedback-draggable-handle span {
+    width: 2em;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.tidy-feedback-form-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.tidy-feedback-form-lead {
+    margin-bottom: 1em;
+}
+
+.tidy-feedback-message {
+    position: fixed;
+    top: var(--spacer-sm);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--spacer-sm) var(--spacer-lg);
+    z-index: var(--z-index-messages);
+    background-color: white;
+    color: black;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-base);
+    border-radius: var(--radius-base);
+}
+
+.tidy-feedback-message.warning {
+    background-color: var(--color-warning-900);
+    color: var(--color-warning-100);
+    border-color: var(--color-warning-700);
+}
+
+.tidy-feedback-message.success {
+    background-color: var(--color-success-900);
+    color: var(--color-success-100);
+    border-color: var(--color-success-700);
+}
+
+.tidy-feedback-message.danger {
+    background-color: var(--color-danger-900);
+    color: var(--color-danger-100);
+    border-color: var(--color-danger-700);
+}
+
+/* Animated border for the select-mode "Click an element" message */
+.tidy-feedback-message.select {
+    border: 2px solid transparent;
+    background:
+        linear-gradient(var(--color-primary), var(--color-primary)) padding-box,
+        conic-gradient(
+                from var(--border-angle, 0deg),
+                var(--color-primary) 10%,
+                white 20%,
+                var(--color-primary-300) 30%,
+                var(--color-primary) 90%
+            )
+            border-box;
+    color: white;
+    animation: rotate-border 5s linear infinite;
+}
+
+@keyframes rotate-border {
+    to {
+        --border-angle: 360deg;
+    }
+}
+
+.tidy-feedback-items {
+    margin-top: var(--spacer-md);
+    border-top: 1px solid var(--color-gray-200);
+    padding-top: var(--spacer-sm);
+}
+
+button.tidy-feedback-items-toggle[type="button"] {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--spacer-xs) 0;
+    cursor: pointer;
+}
+
+button.tidy-feedback-items-toggle[type="button"]::before {
+    content: "\25B6";
+    display: inline-block;
+    margin-right: var(--spacer-xs);
+    font-size: 0.6em;
+    transition: transform 0.2s ease;
+}
+
+button.tidy-feedback-items-toggle[type="button"].open::before {
+    transform: rotate(90deg);
+}
+
+button.tidy-feedback-items-toggle[type="button"]:hover,
+button.tidy-feedback-items-toggle[type="button"]:active {
+    color: var(--color-text-dark);
+    background-color: transparent;
+    border: none;
+}
+
+.tidy-feedback-items-list {
+    list-style: none;
+    margin: var(--spacer-xs) 0 0;
+    padding: 0;
+    max-height: 12em;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tidy-feedback-items-list li {
+    border-radius: var(--radius-sm);
+}
+
+.tidy-feedback-items-list a {
+    display: block;
+    padding: var(--spacer-xs) 0;
+    color: var(--color-gray-700);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-sm);
+}
+
+.tidy-feedback-items-list a:hover {
+    color: var(--color-primary);
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: var(--font-size-sm);
+}
+
+.form-row:not(.required) label::after {
+    margin-left: 10px;
+    content: "(optional)";
+    color: var(--color-gray-500);
+    font-weight: normal;
+}

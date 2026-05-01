@@ -1,0 +1,83 @@
+/* https://medium.com/the-z/making-a-resizable-div-in-js-is-not-easy-as-you-think-bda19a1bc53d */
+
+#tidy-feedback-region {
+    position: absolute;
+    z-index: var(--z-index-region);
+}
+
+#tidy-feedback-region .resizable {
+    position: fixed;
+}
+
+#tidy-feedback-region .resizable .resizers {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--color-primary);
+    box-sizing: border-box;
+    cursor: move;
+}
+
+#tidy-feedback-region .resizable .resizer {
+    --resizer-offset: -4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--color-primary);
+    position: absolute;
+}
+
+#tidy-feedback-region .resizer.top-left {
+    left: var(--resizer-offset);
+    top: var(--resizer-offset);
+    cursor: nwse-resize;
+}
+
+#tidy-feedback-region .resizer.top-right {
+    right: var(--resizer-offset);
+    top: var(--resizer-offset);
+    cursor: nesw-resize;
+}
+
+#tidy-feedback-region .resizer.bottom-left {
+    left: var(--resizer-offset);
+    bottom: var(--resizer-offset);
+    cursor: nesw-resize;
+}
+
+#tidy-feedback-region .resizer.bottom-right {
+    right: var(--resizer-offset);
+    bottom: var(--resizer-offset);
+    cursor: nwse-resize;
+}
+
+#tidy-feedback-region .overlays > div {
+    position: fixed;
+    background: var(--color-primary);
+    opacity: 0.1;
+    color: transparent;
+}
+
+#tidy-feedback-region .overlays .top {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#tidy-feedback-region .overlays .left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#tidy-feedback-region .overlays .right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#tidy-feedback-region .overlays .bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
