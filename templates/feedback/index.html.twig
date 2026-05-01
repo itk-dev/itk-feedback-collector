@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Select Website{% endblock %}
+
+{% block body %}
+    <h1>Select a Website</h1>
+    <form method="get" action="{{ path('app_index') }}">
+        <select name="website" required>
+            <option value="">-- Choose a website --</option>
+            {% for website in websites %}
+                <option value="{{ website.id }}">{{ website.websiteId }} ({{ website.url }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit">View Feedback</button>
+    </form>
+{% endblock %}

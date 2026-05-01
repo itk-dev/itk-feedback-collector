@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feedback for {{ website.websiteId }}{% endblock %}
+
+{% block body %}
+    <h1>Feedback for {{ website.websiteId }}</h1>
+    <p>{{ website.url }}</p>
+    <p><a href="{{ path('app_index') }}">Back to website selection</a></p>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.id }}</td>
+                    <td>{{ feedback.data|json_encode }}</td>
+                    <td>{{ feedback.createdAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No feedback found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
