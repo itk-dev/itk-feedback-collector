@@ -143,6 +143,10 @@ export function initFormSubmit(ctx) {
 
         ctx.showMessage("Taking screenshot \u2026");
 
+        // Hide widget form/messages before capturing screenshot (keep region visible)
+        const widgetHost = document.getElementById("tidy-feedback");
+        if (widgetHost) widgetHost.style.display = "none";
+
         try {
             const el = document.body;
             const result = await snapdom(el, { scale: 1 });
@@ -159,6 +163,9 @@ export function initFormSubmit(ctx) {
         } catch (error) {
             ctx.showMessage("Error taking screenshot", "danger");
         }
+
+        // Restore widget after capture
+        if (widgetHost) widgetHost.style.display = "";
 
         ctx.showMessage("Sending feedback \u2026");
 
