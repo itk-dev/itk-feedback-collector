@@ -23,6 +23,12 @@ class Feedback
     private ?Website $website = null;
 
     #[ORM\Column]
+    private bool $handled = false;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $note = null;
+
+    #[ORM\Column]
     private array $data = [];
 
     public function getId(): ?Uuid
@@ -50,6 +56,30 @@ class Feedback
     public function setWebsite(?Website $website): static
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    public function isHandled(): bool
+    {
+        return $this->handled;
+    }
+
+    public function setHandled(bool $handled): static
+    {
+        $this->handled = $handled;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): static
+    {
+        $this->note = $note;
 
         return $this;
     }

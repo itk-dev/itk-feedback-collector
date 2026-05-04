@@ -19,7 +19,8 @@
         </button>
     </form>
 
-    <p class="mt-5">
+    <div class="mt-5 flex gap-4 text-sm">
         <a href="{{ path('app_admin_website_create') }}">{{ 'Create new website'|trans }}</a>
-    </p>
+        <a href="{{ path('app_admin_website_index') }}">{{ 'Manage websites'|trans }}</a>
+    </div>
 {% endblock %}

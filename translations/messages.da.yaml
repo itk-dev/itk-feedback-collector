@@ -26,6 +26,13 @@
 "Delete this feedback?": "Slet denne feedback?"
 "No feedback found.": "Ingen feedback fundet."
 "Create new website": "Opret nyt website"
+"Manage websites": "Administrér websites"
+"Manage Websites": "Administrér websites"
+"Edit": "Redigér"
+"Edit Website": "Redigér website"
+"Back to websites": "Tilbage til websites"
+"No websites found.": "Ingen websites fundet."
+"Save": "Gem"
 "Create another website": "Opret et nyt website"
 "Back to home": "Tilbage til forsiden"
 
@@ -33,6 +40,7 @@
 "Feedback Detail": "Feedbackdetaljer"
 "Back to": "Tilbage til"
 "Page URL": "Side-URL"
+"Source page": "Kildeside"
 "User Agent": "Browser"
 "Window Size": "Vinduesstørrelse"
 "Selected Element": "Valgt element"
@@ -42,9 +50,22 @@
 "Raw JSON data": "Rå JSON-data"
 "Report as bug": "Rapportér som fejl"
 "Create feature request": "Opret ændringsønske"
+"No FreeScout mailbox configured": "Ingen FreeScout-postkasse konfigureret"
+"FreeScout Mailbox": "FreeScout-postkasse"
+"-- None --": "-- Ingen --"
 
 # Form labels
 "Name": "Navn"
+
+# FreeScout conversation body
+"Submitted by": "Indsendt af"
+"View feedback detail": "Se feedbackdetaljer"
+"Feedback detail": "Feedbackdetalje"
+"Handled": "Behandlet"
+"Note": "Note"
+"Save note": "Gem note"
+"Add a note for this feedback...": "Tilføj en note til denne feedback..."
+"Note saved.": "Note gemt."
 
 # Flash messages
 "Feedback deleted.": "Feedback slettet."

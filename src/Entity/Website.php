@@ -21,6 +21,9 @@ class Website
     #[ORM\Column(length: 255)]
     private ?string $apiKey = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $freescoutMailboxId = null;
+
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
@@ -71,6 +74,18 @@ class Website
     public function generateApiKey(): static
     {
         $this->apiKey = Uuid::v4()->toRfc4122();
+
+        return $this;
+    }
+
+    public function getFreescoutMailboxId(): ?int
+    {
+        return $this->freescoutMailboxId;
+    }
+
+    public function setFreescoutMailboxId(?int $freescoutMailboxId): static
+    {
+        $this->freescoutMailboxId = $freescoutMailboxId;
 
         return $this;
     }
