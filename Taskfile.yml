@@ -1,99 +1,99 @@
 version: "3"
 
-# https://taskfile.dev/usage/#env-files
-dotenv: [".env.local", ".env"]
-
 vars:
-    # https://taskfile.dev/reference/templating/
-    BASE_URL: '{{.TASK_BASE_URL | default .COMPOSE_SERVER_DOMAIN | default .COMPOSE_DOMAIN | default "http://tidy-feedback-collector.local.itkdev.dk"}}'
-    DOCKER_COMPOSE: '{{.TASK_DOCKER_COMPOSE | default "docker compose"}}'
+    COLLECTOR_DIR: "{{.ROOT_DIR}}/tidy-feedback-collector"
+    DRUPAL_DIR: "{{.ROOT_DIR}}/site/drupal"
+    SYMFONY_DIR: "{{.ROOT_DIR}}/site/symfony"
+    COLLECTOR_DOMAIN: "tidy-feedback-collector.local.itkdev.dk"
+    DRUPAL_DOMAIN: "tidy-feedback-drupal.local.itkdev.dk"
+    SYMFONY_DOMAIN: "tidy-feedback-symfony.local.itkdev.dk"
 
 tasks:
-    compose:
-        desc: Run docker compose command
+    setup:
+        desc: Set up all three sites
         cmds:
-            - "{{.DOCKER_COMPOSE}} {{.CLI_ARGS}}"
+            - task: setup:collector
+            - task: setup:drupal
+            - task: setup:symfony
 
-    compose-up:
-        desc: Start Docker containers
+    setup:collector:
+        desc: Set up the collector site
+        dir: "{{.COLLECTOR_DIR}}"
         cmds:
-            - "{{.DOCKER_COMPOSE}} up -d"
+            - docker compose up -d
+            - docker compose exec phpfpm composer install
+            - docker compose exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
+            - docker compose exec phpfpm bin/console doctrine:fixtures:load --no-interaction
 
-    composer:
-        desc: Run composer command
+    setup:drupal:
+        desc: Scaffold and set up the Drupal test site
         cmds:
-            - "{{.DOCKER_COMPOSE}} exec phpfpm composer {{.CLI_ARGS}}"
+            - mkdir -p {{.DRUPAL_DIR}}
+            - cd {{.DRUPAL_DIR}} && printf 'tidy-feedback-drupal\n{{.DRUPAL_DOMAIN}}\n' | itkdev-docker-compose template:install drupal-11 --force
+            - cd {{.DRUPAL_DIR}} && docker compose up -d
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm rm -rf /tmp/project
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm composer create-project drupal/recommended-project:^11 /tmp/project --no-interaction
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm bash -c 'cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-drupal\nCOMPOSE_DOMAIN={{.DRUPAL_DOMAIN}}\nITKDEV_TEMPLATE=drupal-11\n" > /app/.env'
+            - cd {{.DRUPAL_DIR}} && docker compose up -d
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm composer install
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm composer require drush/drush
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm composer require itk-dev/tidy-feedback-client
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm vendor/bin/drush site:install standard --db-url=mysql://db:db@mariadb:3306/db --yes
+            - cd {{.DRUPAL_DIR}} && docker compose exec phpfpm vendor/bin/drush en tidy_feedback_client --yes
+            - task: env:drupal
 
-    console:
-        desc: Run Symfony console command
+    setup:symfony:
+        desc: Scaffold and set up the Symfony test site
         cmds:
-            - "{{.DOCKER_COMPOSE}} exec phpfpm bin/console {{.CLI_ARGS}}"
+            - mkdir -p {{.SYMFONY_DIR}}
+            - cd {{.SYMFONY_DIR}} && printf '\n{{.SYMFONY_DOMAIN}}\n' | itkdev-docker-compose template:install symfony-6 --force
+            - cd {{.SYMFONY_DIR}} && docker compose up -d
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm rm -rf /tmp/project
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm composer create-project symfony/skeleton:"7.*" /tmp/project --no-interaction
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm bash -c 'find /app -mindepth 1 -not -path "/app/.docker*" -not -name "docker-compose*" -delete 2>/dev/null; cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-symfony\nCOMPOSE_DOMAIN={{.SYMFONY_DOMAIN}}\nITKDEV_TEMPLATE=symfony-6\n\n$(cat /app/.env)" > /app/.env'
+            - cd {{.SYMFONY_DIR}} && docker compose up -d
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm composer install
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm composer require symfony/twig-bundle
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm composer require --dev symfony/maker-bundle
+            - cd {{.SYMFONY_DIR}} && printf 'no\n' | docker compose exec -T phpfpm bin/console make:controller HomeController
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm sed -i "s|'/home'|'/'|" src/Controller/HomeController.php
+            - cd {{.SYMFONY_DIR}} && docker compose exec phpfpm composer require itk-dev/tidy-feedback-client
+            - task: env:symfony
 
-    coding-standards-php-check:
-        desc: Check PHP coding standards (PHP CS Fixer)
+    env:drupal:
+        desc: Set tidy-feedback-client env vars for Drupal site
+        vars:
+            API_KEY:
+                sh: cd {{.COLLECTOR_DIR}} && docker compose exec -T phpfpm bin/console app:website:api-key tidy-feedback-drupal
         cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm phpfpm vendor/bin/php-cs-fixer fix --dry-run --diff"
+            - |
+                cat > {{.DRUPAL_DIR}}/.env.local <<EOF
+                TIDY_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}
+                TIDY_FEEDBACK_CLIENT_API_KEY={{.API_KEY}}
+                EOF
 
-    coding-standards-php-apply:
-        desc: Apply PHP coding standards (PHP CS Fixer)
+    env:symfony:
+        desc: Set tidy-feedback-client env vars for Symfony site
+        vars:
+            API_KEY:
+                sh: cd {{.COLLECTOR_DIR}} && docker compose exec -T phpfpm bin/console app:website:api-key tidy-feedback-symfony
         cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm phpfpm vendor/bin/php-cs-fixer fix"
+            - |
+                cat > {{.SYMFONY_DIR}}/.env.local <<EOF
+                TIDY_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}
+                TIDY_FEEDBACK_CLIENT_API_KEY={{.API_KEY}}
+                EOF
 
-    coding-standards-twig-check:
-        desc: Check Twig coding standards
+    start:
+        desc: Start all three sites
         cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm phpfpm vendor/bin/twig-cs-fixer lint"
+            - cd {{.COLLECTOR_DIR}} && docker compose up -d
+            - cd {{.DRUPAL_DIR}} && docker compose up -d
+            - cd {{.SYMFONY_DIR}} && docker compose up -d
 
-    coding-standards-twig-apply:
-        desc: Apply Twig coding standards
+    down:
+        desc: Stop and remove all three sites' containers
         cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm phpfpm vendor/bin/twig-cs-fixer lint --fix"
-
-    coding-standards-markdown-check:
-        desc: Check Markdown coding standards
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm markdownlint --dot '**/*.md' --ignore vendor --ignore node_modules"
-
-    coding-standards-markdown-apply:
-        desc: Apply Markdown coding standards
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm markdownlint --dot --fix '**/*.md' --ignore vendor --ignore node_modules"
-
-    coding-standards-prettier-check:
-        desc: Check Prettier coding standards (YAML, JS, etc.)
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm prettier --check ."
-
-    coding-standards-prettier-apply:
-        desc: Apply Prettier coding standards (YAML, JS, etc.)
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm prettier --write ."
-
-    npm-install:
-        desc: Install Node.js dependencies
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm node npm install --legacy-peer-deps"
-
-    build-app:
-        desc: Build app assets
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm node npx encore production"
-
-    build-widget:
-        desc: Build widget assets
-        cmds:
-            - "{{.DOCKER_COMPOSE}} run --rm node npx encore production --config webpack.widget.config.js"
-
-    build:
-        desc: Build all assets
-        cmds:
-            - task: build-app
-            - task: build-widget
-
-    ci:
-        desc: Run all coding standards checks
-        cmds:
-            - task: coding-standards-php-check
-            - task: coding-standards-twig-check
-            - task: coding-standards-markdown-check
-            - task: coding-standards-prettier-check
+            - cd {{.COLLECTOR_DIR}} && docker compose down
+            - cd {{.DRUPAL_DIR}} && docker compose down
+            - cd {{.SYMFONY_DIR}} && docker compose down
