@@ -13,9 +13,9 @@ class FeedbackFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $websiteFeedbackCounts = [
-            WebsiteFixtures::WEBSITE_AARHUS => 12,
-            WebsiteFixtures::WEBSITE_MKB => 10,
-            WebsiteFixtures::WEBSITE_DOKK1 => 15,
+            WebsiteFixtures::WEBSITE_TEST_1 => 12,
+            WebsiteFixtures::WEBSITE_TEST_2 => 10,
+            WebsiteFixtures::WEBSITE_TEST_3 => 15,
         ];
 
         foreach ($websiteFeedbackCounts as $reference => $count) {

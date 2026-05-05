@@ -26,12 +26,13 @@ import { initKeyboardShortcuts } from "./component/keyboard";
     "use strict";
 
     const script = document.currentScript;
-    const endpoint = script.getAttribute("data-endpoint");
     const apiKey = script.getAttribute("data-api-key");
+    const srcUrl = new URL(script.src);
+    const endpoint = srcUrl.origin + "/api/feedback";
 
-    if (!endpoint || !apiKey) {
+    if (!apiKey) {
         console.error(
-            "TidyFeedback: data-endpoint and data-api-key attributes are required.",
+            "TidyFeedback: data-api-key attribute is required.",
         );
         return;
     }

@@ -18,13 +18,12 @@
         <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
         {% endif %}
-        <script src="http://tidy-feedback-collector.local.itkdev.dk/build/widget/widget.js"
-                data-endpoint="http://tidy-feedback-collector.local.itkdev.dk/api/feedback"
-                data-api-key="0f2d6fde-df11-43f8-b90b-09696b5529ab"></script>
     </head>
     <body class="bg-bg min-h-screen">
         <main class="max-w-[var(--container-base)] mx-auto px-5 py-7">
             {% block body %}{% endblock %}
         </main>
+        <script src="http://tidy-feedback-collector.local.itkdev.dk/build/widget/widget.js"
+                data-api-key="0f2d6fde-df11-43f8-b90b-09696b5529ab"></script>
     </body>
 </html>

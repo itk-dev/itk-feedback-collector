@@ -8,16 +8,20 @@ use Doctrine\Persistence\ObjectManager;
 
 class WebsiteFixtures extends Fixture
 {
-    public const WEBSITE_AARHUS = 'website-aarhus';
-    public const WEBSITE_MKB = 'website-mkb';
-    public const WEBSITE_DOKK1 = 'website-dokk1';
+    public const WEBSITE_DRUPAL = 'website-drupal';
+    public const WEBSITE_SYMFONY = 'website-symfony';
+    public const WEBSITE_TEST_1 = 'website-test-1';
+    public const WEBSITE_TEST_2 = 'website-test-2';
+    public const WEBSITE_TEST_3 = 'website-test-3';
 
     public function load(ObjectManager $manager): void
     {
         $websites = [
-            [self::WEBSITE_AARHUS, 'https://www.aarhus.dk', 'aarhus-dk'],
-            [self::WEBSITE_MKB, 'https://www.mkb.aarhus.dk', 'mkb-aarhus'],
-            [self::WEBSITE_DOKK1, 'https://www.dokk1.dk', 'dokk1-dk'],
+            [self::WEBSITE_DRUPAL, 'https://tidy-feedback-drupal.local.itkdev.dk', 'tidy-feedback-drupal'],
+            [self::WEBSITE_SYMFONY, 'https://tidy-feedback-symfony.local.itkdev.dk', 'tidy-feedback-symfony'],
+            [self::WEBSITE_TEST_1, 'https://www.example-one.dk', 'test-site-1'],
+            [self::WEBSITE_TEST_2, 'https://www.example-two.dk', 'test-site-2'],
+            [self::WEBSITE_TEST_3, 'https://www.example-three.dk', 'test-site-3'],
         ];
 
         foreach ($websites as [$reference, $url, $websiteId]) {

@@ -26,6 +26,17 @@ task console -- doctrine:fixtures:load --no-interaction
 
 The site is available at `tidy-feedback-collector.local.itkdev.dk`.
 
+## Environment Variables
+
+Configure these in `.env.local`:
+
+```dotenv
+
+# FreeScout integration (optional — needed for "Report as bug")
+FREESCOUT_API_URL=https://your-freescout-instance.com
+FREESCOUT_API_KEY=your-freescout-api-key
+```
+
 ## Building Assets
 
 The project has two separate asset builds:
@@ -61,11 +72,11 @@ Add the script tag to the target website's HTML:
 
 ```html
 <script src="https://your-collector-domain.com/build/widget/widget.js"
-        data-endpoint="https://your-collector-domain.com/api/feedback"
         data-api-key="YOUR-API-KEY"></script>
 ```
 
-No additional CSS file is needed — styles are bundled into the JavaScript file.
+The API endpoint is derived automatically from the script's `src` attribute. No
+additional CSS file is needed — styles are bundled into the JavaScript file.
 
 ### Features
 
