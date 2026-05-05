@@ -47,6 +47,10 @@ services:
             - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
             - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}.rule=Host(`${COMPOSE_SERVER_DOMAIN:?}`)"
             - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}.entrypoints=websecure"
+            # Allow /api/ and widget assets without basic auth (CORS preflight cannot carry credentials).
+            - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}-api.rule=Host(`${COMPOSE_SERVER_DOMAIN:?}`) && (PathPrefix(`/api/`) || PathPrefix(`/build/widget/`))"
+            - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}-api.entrypoints=websecure"
+            - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}-api.priority=10"
             # Cron-metrics protection.
             - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}-metrics.rule=Host(`${COMPOSE_SERVER_DOMAIN:?}`) && PathPrefix(`/cron-metrics`) "
             - "traefik.http.routers.${COMPOSE_PROJECT_NAME:?}-metrics.middlewares=ITKMetricsAuth@file"
