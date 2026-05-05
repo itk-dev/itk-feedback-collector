@@ -130,16 +130,16 @@ tasks:
         cmds:
             - mkdir -p {{.DRUPAL_DIR}}
             - cd {{.DRUPAL_DIR}} && printf 'tidy-feedback-drupal\n{{.DRUPAL_DOMAIN}}\n' | itkdev-docker-compose template:install drupal-11 --force
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . up -d
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm rm -rf /tmp/project
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm composer create-project drupal/recommended-project:^11 /tmp/project --no-interaction
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm bash -c 'cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-drupal\nCOMPOSE_DOMAIN={{.DRUPAL_DOMAIN}}\nITKDEV_TEMPLATE=drupal-11\n" > /app/.env'
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . up -d
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm composer install
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm composer require drush/drush
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm composer require itk-dev/tidy-feedback-client
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm vendor/bin/drush site:install standard --db-url=mysql://db:db@mariadb:3306/db --yes
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . exec phpfpm vendor/bin/drush en tidy_feedback_client --yes
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm rm -rf /tmp/project
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer create-project drupal/recommended-project:^11 /tmp/project --no-interaction
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm bash -c 'cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-drupal\nCOMPOSE_DOMAIN={{.DRUPAL_DOMAIN}}\nITKDEV_TEMPLATE=drupal-11\n" > /app/.env'
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer install
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer require drush/drush
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer require itk-dev/tidy-feedback-client
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm vendor/bin/drush site:install standard --db-url=mysql://db:db@mariadb:3306/db --yes
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm vendor/bin/drush en tidy_feedback_client --yes
             - task: dev:env:drupal
 
     dev:setup:symfony:
@@ -147,17 +147,17 @@ tasks:
         cmds:
             - mkdir -p {{.SYMFONY_DIR}}
             - cd {{.SYMFONY_DIR}} && printf '\n{{.SYMFONY_DOMAIN}}\n' | itkdev-docker-compose template:install symfony-6 --force
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . up -d
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm rm -rf /tmp/project
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm composer create-project symfony/skeleton:"7.*" /tmp/project --no-interaction
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm bash -c 'find /app -mindepth 1 -not -path "/app/.docker*" -not -name "docker-compose*" -delete 2>/dev/null; cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-symfony\nCOMPOSE_DOMAIN={{.SYMFONY_DOMAIN}}\nITKDEV_TEMPLATE=symfony-6\n\n$(cat /app/.env)" > /app/.env'
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . up -d
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm composer install
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm composer require symfony/twig-bundle
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm composer require --dev symfony/maker-bundle
-            - cd {{.SYMFONY_DIR}} && printf 'no\n' | docker compose exec -T phpfpm bin/console make:controller HomeController
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm sed -i "s|'/home'|'/'|" src/Controller/HomeController.php
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . exec phpfpm composer require itk-dev/tidy-feedback-client
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm rm -rf /tmp/project
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer create-project symfony/skeleton:"7.*" /tmp/project --no-interaction
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm bash -c 'find /app -mindepth 1 -not -path "/app/.docker*" -not -name "docker-compose*" -delete 2>/dev/null; cp -rT /tmp/project /app && printf "COMPOSE_PROJECT_NAME=tidy-feedback-symfony\nCOMPOSE_DOMAIN={{.SYMFONY_DOMAIN}}\nITKDEV_TEMPLATE=symfony-6\n\n$(cat /app/.env)" > /app/.env'
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer install
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer require symfony/twig-bundle
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer require --dev symfony/maker-bundle
+            - cd {{.SYMFONY_DIR}} && printf 'no\n' | env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec -T phpfpm bin/console make:controller HomeController
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm sed -i "s|'/home'|'/'|" src/Controller/HomeController.php
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . exec phpfpm composer require itk-dev/tidy-feedback-client
             - task: dev:env:symfony
 
     dev:env:drupal:
@@ -174,12 +174,12 @@ tasks:
         desc: Start all three sites
         cmds:
             - docker compose up -d
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . up -d
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . up -d
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . up -d
 
     dev:down:
         desc: Stop and remove all three sites' containers
         cmds:
             - docker compose down
-            - cd {{.DRUPAL_DIR}} && docker compose --project-directory . down
-            - cd {{.SYMFONY_DIR}} && docker compose --project-directory . down
+            - cd {{.DRUPAL_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . down
+            - cd {{.SYMFONY_DIR}} && env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN env -u COMPOSE_PROJECT_NAME -u COMPOSE_DOMAIN docker compose --project-directory . down
