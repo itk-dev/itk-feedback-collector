@@ -30,6 +30,5 @@ steps:
         - itkdev-docker-compose-server up --detach --force-recreate
         - itkdev-docker-compose-server exec phpfpm composer install --no-dev --classmap-authoritative
         - itkdev-docker-compose-server exec phpfpm bin/console doctrine:migrations:migrate --no-interaction
-        # https://symfony.com/doc/current/frontend/asset_mapper.html#serving-assets-in-dev-vs-prod
-        - itkdev-docker-compose-server exec phpfpm bin/console asset-map:compile
+        - docker run --rm -v $(pwd):/app -w /app node:22 sh -c 'npm install --legacy-peer-deps && npx encore production && npx encore production --config webpack.widget.config.js'
         - itkdev-docker-compose-server exec phpfpm bin/console cache:clear
