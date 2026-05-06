@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "itk-dev/tidy-feedback-collector",
+    "description": "Tidy Feedback Collector",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -7,14 +9,14 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
-        "doctrine/orm": "^3.6",
-        "stof/doctrine-extensions-bundle": "^1.15",
+        "doctrine/orm": "^3.6.3",
+        "stof/doctrine-extensions-bundle": "^1.15.3",
         "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.10",
         "symfony/form": "7.4.*",
         "symfony/framework-bundle": "7.4.*",
         "symfony/http-client": "7.4.*",
@@ -78,8 +80,8 @@
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^4.3",
-        "friendsofphp/php-cs-fixer": "^3.95",
+        "doctrine/doctrine-fixtures-bundle": "^4.3.1",
+        "friendsofphp/php-cs-fixer": "^3.95.1",
         "symfony/maker-bundle": "^1.67",
         "vincentlanglet/twig-cs-fixer": "^3.14"
     }

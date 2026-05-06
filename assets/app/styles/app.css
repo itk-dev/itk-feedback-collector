@@ -2,19 +2,19 @@
 
 @theme {
     /* ---- Brand palette ---- */
-    --color-red: #E44930;
-    --color-lime: #89BD23;
-    --color-mint: #73BC99;
-    --color-blue: #007BA6;
-    --color-cyan: #00A5CD;
-    --color-aqua: #00B5C9;
-    --color-green: #008D3D;
+    --color-red: #e44930;
+    --color-lime: #89bd23;
+    --color-mint: #73bc99;
+    --color-blue: #007ba6;
+    --color-cyan: #00a5cd;
+    --color-aqua: #00b5c9;
+    --color-green: #008d3d;
 
     /* ---- Functional roles ---- */
-    --color-primary: #007BA6;
+    --color-primary: #007ba6;
     --color-primary-hover: #006385;
-    --color-accent: #E44930;
-    --color-error: #E44930;
+    --color-accent: #e44930;
+    --color-error: #e44930;
 
     /* ---- Neutral scale ---- */
     --color-ink: #111318;
@@ -35,7 +35,8 @@
     /* ---- Font families ---- */
     --font-sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
     --font-display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-mono:
+        "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
     /* ---- Type scale ---- */
     --text-xs: 12px;
@@ -70,8 +71,12 @@
 
     /* ---- Elevation ---- */
     --shadow-1: 0 1px 2px rgba(17, 19, 24, 0.06);
-    --shadow-2: 0 4px 10px -2px rgba(17, 19, 24, 0.08), 0 2px 4px -1px rgba(17, 19, 24, 0.04);
-    --shadow-3: 0 16px 32px -12px rgba(17, 19, 24, 0.18), 0 4px 8px -2px rgba(17, 19, 24, 0.06);
+    --shadow-2:
+        0 4px 10px -2px rgba(17, 19, 24, 0.08),
+        0 2px 4px -1px rgba(17, 19, 24, 0.04);
+    --shadow-3:
+        0 16px 32px -12px rgba(17, 19, 24, 0.18),
+        0 4px 8px -2px rgba(17, 19, 24, 0.06);
 
     /* ---- Focus ring ---- */
     --shadow-focus: 0 0 0 3px rgba(0, 123, 166, 0.35);

@@ -119,8 +119,10 @@ selection.
 Add the script tag to the target website's HTML:
 
 ```html
-<script src="https://your-collector-domain.com/build/widget/widget.js"
-        data-api-key="YOUR-API-KEY"></script>
+<script
+    src="https://your-collector-domain.com/build/widget/widget.js"
+    data-api-key="YOUR-API-KEY"
+></script>
 ```
 
 The API endpoint is derived automatically from the script's `src` attribute. No
@@ -166,7 +168,6 @@ The following measures are in place to limit abuse:
   It cannot be used to read, update, or delete data.
   See [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
 
-
 ## How to set up a client
 
 The client package provides a Twig extension that embeds the feedback widget on
@@ -204,9 +205,8 @@ keys for the test sites automatically. The collector's own integrations
 (FreeScout, Leantime) must be configured separately via `.env.local` and the
 admin panel.
 
-
-| Site | URL |
-|---|---|
+| Site      | URL                                       |
+| --------- | ----------------------------------------- |
 | Collector | `tidy-feedback-collector.local.itkdev.dk` |
-| Drupal | `tidy-feedback-drupal.local.itkdev.dk` |
-| Symfony | `tidy-feedback-symfony.local.itkdev.dk` |
+| Drupal    | `tidy-feedback-drupal.local.itkdev.dk`    |
+| Symfony   | `tidy-feedback-symfony.local.itkdev.dk`   |

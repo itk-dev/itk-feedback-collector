@@ -31,9 +31,7 @@ import { initKeyboardShortcuts } from "./component/keyboard";
     const endpoint = srcUrl.origin + "/api/feedback";
 
     if (!apiKey) {
-        console.error(
-            "TidyFeedback: data-api-key attribute is required.",
-        );
+        console.error("TidyFeedback: data-api-key attribute is required.");
         return;
     }
 
@@ -210,9 +208,7 @@ import { initKeyboardShortcuts } from "./component/keyboard";
         ctx.form = getElement(".tidy-feedback-form");
         ctx.start = getElement(".tidy-feedback-start");
         ctx.startCount = getElement(".tidy-feedback-start-count");
-        ctx.region = getDocumentElement(
-            "#tidy-feedback-region > .resizable",
-        );
+        ctx.region = getDocumentElement("#tidy-feedback-region > .resizable");
 
         const startAdd = getActionElement("start");
         const cancel = getActionElement("cancel");

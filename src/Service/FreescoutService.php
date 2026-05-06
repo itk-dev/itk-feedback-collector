@@ -55,11 +55,7 @@ class FreescoutService
         $statusCode = $response->getStatusCode();
 
         if ($statusCode >= 400) {
-            throw new \RuntimeException(sprintf(
-                'FreeScout API error (%d): %s',
-                $statusCode,
-                $response->getContent(false),
-            ));
+            throw new \RuntimeException(sprintf('FreeScout API error (%d): %s', $statusCode, $response->getContent(false)));
         }
 
         return $response->toArray();
