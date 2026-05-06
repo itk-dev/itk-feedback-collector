@@ -24,6 +24,9 @@ class Website
     #[ORM\Column(nullable: true)]
     private ?int $freescoutMailboxId = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $leantimeProjectId = null;
+
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
@@ -86,6 +89,18 @@ class Website
     public function setFreescoutMailboxId(?int $freescoutMailboxId): static
     {
         $this->freescoutMailboxId = $freescoutMailboxId;
+
+        return $this;
+    }
+
+    public function getLeantimeProjectId(): ?int
+    {
+        return $this->leantimeProjectId;
+    }
+
+    public function setLeantimeProjectId(?int $leantimeProjectId): static
+    {
+        $this->leantimeProjectId = $leantimeProjectId;
 
         return $this;
     }

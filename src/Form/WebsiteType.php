@@ -28,6 +28,12 @@ class WebsiteType extends AbstractType
                 'required' => false,
                 'placeholder' => '-- None --',
             ])
+            ->add('leantimeProjectId', ChoiceType::class, [
+                'label' => 'Leantime Project',
+                'choices' => $options['project_choices'],
+                'required' => false,
+                'placeholder' => '-- None --',
+            ])
             ->add('save', SubmitType::class, [
                 'label' => $options['submit_label'],
             ])
@@ -39,6 +45,7 @@ class WebsiteType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Website::class,
             'mailbox_choices' => [],
+            'project_choices' => [],
             'submit_label' => 'Create Website',
         ]);
     }

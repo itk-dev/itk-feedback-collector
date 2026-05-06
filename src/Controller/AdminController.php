@@ -6,6 +6,7 @@ use App\Entity\Website;
 use App\Form\WebsiteType;
 use App\Repository\WebsiteRepository;
 use App\Service\FreescoutService;
+use App\Service\LeantimeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/website/create', name: 'app_admin_website_create')]
-    public function createWebsite(Request $request, EntityManagerInterface $entityManager, FreescoutService $freescoutService): Response
+    public function createWebsite(Request $request, EntityManagerInterface $entityManager, FreescoutService $freescoutService, LeantimeService $leantimeService): Response
     {
         $mailboxChoices = $this->getMailboxChoices($freescoutService);
+        $projectChoices = $this->getProjectChoices($leantimeService);
 
         $website = new Website();
         $form = $this->createForm(WebsiteType::class, $website, [
             'mailbox_choices' => $mailboxChoices,
+            'project_choices' => $projectChoices,
         ]);
         $form->handleRequest($request);
 
@@ -52,7 +55,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/website/{id}/edit', name: 'app_admin_website_edit')]
-    public function editWebsite(string $id, Request $request, WebsiteRepository $websiteRepository, EntityManagerInterface $entityManager, FreescoutService $freescoutService): Response
+    public function editWebsite(string $id, Request $request, WebsiteRepository $websiteRepository, EntityManagerInterface $entityManager, FreescoutService $freescoutService, LeantimeService $leantimeService): Response
     {
         $website = $websiteRepository->find($id);
 
@@ -61,9 +64,11 @@ class AdminController extends AbstractController
         }
 
         $mailboxChoices = $this->getMailboxChoices($freescoutService);
+        $projectChoices = $this->getProjectChoices($leantimeService);
 
         $form = $this->createForm(WebsiteType::class, $website, [
             'mailbox_choices' => $mailboxChoices,
+            'project_choices' => $projectChoices,
             'submit_label' => 'Save',
         ]);
         $form->handleRequest($request);
@@ -95,5 +100,20 @@ class AdminController extends AbstractController
         }
 
         return $mailboxChoices;
+    }
+
+    private function getProjectChoices(LeantimeService $leantimeService): array
+    {
+        $projectChoices = [];
+        try {
+            $projects = $leantimeService->getProjects();
+            foreach ($projects as $id => $name) {
+                $projectChoices[$name] = $id;
+            }
+        } catch (\Exception) {
+            // Leantime not configured or unreachable
+        }
+
+        return $projectChoices;
     }
 }

@@ -21,7 +21,15 @@
                 {% else %}
                     <button type="button" class="bg-primary text-paper px-4 py-2 rounded-2 text-sm font-medium no-underline border-none opacity-50 cursor-not-allowed" disabled title="{{ 'No FreeScout mailbox configured'|trans }}">{{ 'Report as bug'|trans }}</button>
                 {% endif %}
-                <button type="button" class="bg-primary text-paper px-4 py-2 rounded-2 text-sm font-medium hover:bg-primary-hover no-underline cursor-pointer border-none" disabled>{{ 'Create feature request'|trans }}</button>
+                {% if feedback.website.leantimeProjectId %}
+                    <form method="post" action="{{ path('app_feedback_change_request', {id: feedback.id}) }}" onsubmit="this.querySelector('.btn-label').textContent='{{ 'Creating…'|trans }}'; this.querySelector('button').disabled=true; this.querySelector('button').classList.add('opacity-50');">
+                        <button type="submit" class="bg-primary text-paper px-4 py-2 rounded-2 text-sm font-medium hover:bg-primary-hover no-underline cursor-pointer border-none">
+                            <span class="btn-label">{{ 'Create change request'|trans }}</span>
+                        </button>
+                    </form>
+                {% else %}
+                    <button type="button" class="bg-primary text-paper px-4 py-2 rounded-2 text-sm font-medium no-underline border-none opacity-50 cursor-not-allowed" disabled title="{{ 'No Leantime project configured'|trans }}">{{ 'Create change request'|trans }}</button>
+                {% endif %}
             {% endif %}
             <form method="post" action="{{ path('app_feedback_delete', {id: feedback.id}) }}"
                   onsubmit="return confirm('{{ 'Delete this feedback?'|trans }}')">

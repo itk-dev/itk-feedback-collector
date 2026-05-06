@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\FeedbackRepository;
 use App\Repository\WebsiteRepository;
 use App\Service\FreescoutService;
+use App\Service\LeantimeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +96,27 @@ class FeedbackController extends AbstractController
             $this->addFlash('success', 'Support issue created in FreeScout.');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Failed to create support issue: '.$e->getMessage());
+        }
+
+        return $this->redirectToRoute('app_feedback_show', ['id' => $id]);
+    }
+
+    #[Route('/feedback/{id}/change-request', name: 'app_feedback_change_request', methods: ['POST'])]
+    public function createChangeRequest(string $id, FeedbackRepository $feedbackRepository, LeantimeService $leantimeService, EntityManagerInterface $entityManager): Response
+    {
+        $feedback = $feedbackRepository->find($id);
+
+        if (!$feedback) {
+            throw $this->createAccessDeniedException('Access denied.');
+        }
+
+        try {
+            $leantimeService->createIssue($feedback);
+            $feedback->setHandled(true);
+            $entityManager->flush();
+            $this->addFlash('success', 'Change request created in Leantime.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Failed to create change request: '.$e->getMessage());
         }
 
         return $this->redirectToRoute('app_feedback_show', ['id' => $id]);
