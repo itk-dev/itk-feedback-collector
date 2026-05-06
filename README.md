@@ -32,6 +32,21 @@ task console -- doctrine:fixtures:load --no-interaction
 
 The site is available at `tidy-feedback-collector.local.itkdev.dk`.
 
+## Authentication
+
+All pages require login except the API endpoints and the embeddable widget
+assets. Create a user with:
+
+```bash
+task console -- app:user:create admin@example.com
+```
+
+To change a user's password:
+
+```bash
+task console -- app:user:password admin@example.com
+```
+
 ## Environment Variables
 
 Configure these in `.env.local`:
