@@ -35,16 +35,20 @@ The site is available at `tidy-feedback-collector.local.itkdev.dk`.
 ## Authentication
 
 All pages require login except the API endpoints and the embeddable widget
-assets. Create a user with:
+assets.
+
+**Local development:**
 
 ```bash
 task console -- app:user:create admin@example.com
+task console -- app:user:password admin@example.com
 ```
 
-To change a user's password:
+**Server:**
 
 ```bash
-task console -- app:user:password admin@example.com
+itkdev-docker-compose-server exec phpfpm bin/console app:user:create admin@example.com
+itkdev-docker-compose-server exec phpfpm bin/console app:user:password admin@example.com
 ```
 
 ## Environment Variables
