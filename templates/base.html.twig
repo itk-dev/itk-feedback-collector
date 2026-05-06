@@ -20,6 +20,15 @@
         {% endif %}
     </head>
     <body class="bg-bg min-h-screen">
+        {% if app.user %}
+            <nav class="bg-primary text-paper px-5 py-2 flex justify-between items-center">
+                <span class="text-sm font-medium">Tidy Feedback</span>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm opacity-80">{{ app.user.userIdentifier }}</span>
+                    <a href="{{ path('app_logout') }}" class="text-sm text-paper no-underline underline-offset-2 hover:underline" style="color: #fbbf24;">Log out</a>
+                </div>
+            </nav>
+        {% endif %}
         <main class="max-w-[var(--container-base)] mx-auto px-5 py-7">
             {% block body %}{% endblock %}
         </main>
