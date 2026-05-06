@@ -7,6 +7,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Client for the Leantime JSON-RPC 2.0 API.
+ *
+ * Handles authentication and provides convenience methods for
+ * fetching projects and creating tickets from feedback entries.
+ */
 class LeantimeService
 {
     public function __construct(
@@ -106,6 +112,12 @@ class LeantimeService
         return $result[0];
     }
 
+    /**
+     * Build the HTML body for a Leantime ticket description.
+     *
+     * Includes translated labels, feedback data, screenshot context,
+     * timestamps, and a link back to the feedback detail page.
+     */
     private function buildIssueBody(Feedback $feedback): string
     {
         $t = $this->translator;
