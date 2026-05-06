@@ -56,11 +56,34 @@ itkdev-docker-compose-server exec phpfpm bin/console app:user:password admin@exa
 Configure these in `.env.local`:
 
 ```dotenv
-
 # FreeScout integration (optional — needed for "Report as bug")
 FREESCOUT_API_URL=https://your-freescout-instance.com
 FREESCOUT_API_KEY=your-freescout-api-key
+
+# Leantime integration (optional — needed for "Create change request")
+LEANTIME_API_URL=https://your-leantime-instance.com
+LEANTIME_API_KEY=your-leantime-api-key
 ```
+
+## Integrations
+
+Feedback entries can be forwarded to external systems from the feedback detail
+page. Each integration is optional and configured per website in the admin.
+
+### FreeScout — "Report as bug"
+
+Creates a support conversation in a FreeScout mailbox. Configure
+`FREESCOUT_API_URL` and `FREESCOUT_API_KEY` in `.env.local`, then select a
+mailbox when creating or editing a website.
+
+### Leantime — "Create change request"
+
+Creates a ticket in a Leantime project via the JSON-RPC 2.0 API. Configure
+`LEANTIME_API_URL` and `LEANTIME_API_KEY` in `.env.local`, then select a
+project when creating or editing a website.
+
+Both actions set the feedback as "handled" and are mutually exclusive — once
+handled via either service, both buttons are hidden.
 
 ## Building Assets
 
@@ -144,15 +167,28 @@ The following measures are in place to limit abuse:
   See [`src/Controller/ApiController.php`](src/Controller/ApiController.php).
 
 
-## How to setup a client
+## How to set up a client
 
-To set up the client on an external site, add the following to the site's
-`.env.local`:
+The client package provides a Twig extension that embeds the feedback widget on
+your site. It is available for both Drupal and Symfony.
 
-```dotenv
-TIDY_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
-TIDY_FEEDBACK_CLIENT_API_KEY=your-api-key
-```
+1. Require the package:
+
+    ```bash
+    composer require itk-dev/tidy-feedback-client
+    ```
+
+2. Create a website entry in the collector admin and copy the API key.
+
+3. Add the following to the client site's `.env.local`:
+
+    ```dotenv
+    TIDY_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
+    TIDY_FEEDBACK_CLIENT_API_KEY=your-api-key
+    ```
+
+See the [tidy-feedback-client](https://github.com/itk-dev/tidy-feedback-client)
+repository for full documentation and framework-specific instructions.
 
 ## Test Sites
 
@@ -164,7 +200,9 @@ task dev:setup
 ```
 
 This sets up all three sites (collector + Drupal + Symfony) and configures API
-keys automatically.
+keys for the test sites automatically. The collector's own integrations
+(FreeScout, Leantime) must be configured separately via `.env.local` and the
+admin panel.
 
 
 | Site | URL |
