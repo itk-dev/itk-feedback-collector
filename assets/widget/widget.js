@@ -21,6 +21,7 @@ import {
     initFormSubmit,
 } from "./component/form";
 import { initKeyboardShortcuts } from "./component/keyboard";
+import { t } from "./translations.js";
 
 (function () {
     "use strict";
@@ -34,6 +35,8 @@ import { initKeyboardShortcuts } from "./component/keyboard";
         console.error("TidyFeedback: data-api-key attribute is required.");
         return;
     }
+
+    const locale = document.documentElement.lang?.split("-")[0] || "en";
 
     function init() {
         // Create the widget host element with Shadow DOM
@@ -59,7 +62,7 @@ import { initKeyboardShortcuts } from "./component/keyboard";
                     </button>
                     <button type="button" class="tidy-feedback-start-add"
                             data-tidy-feedback-action="start"
-                            title="Shift+C">+ Add feedback</button>
+                            title="Shift+C">${t("+ Add feedback", locale)}</button>
                 </div>
 
                 <form hidden class="tidy-feedback-form" method="post">
@@ -68,23 +71,23 @@ import { initKeyboardShortcuts } from "./component/keyboard";
                         <span></span>
                         <span></span>
                     </div>
-                    <h1 class="tidy-feedback-form-title">Your feedback</h1>
-                    <p class="tidy-feedback-form-lead">Tell us what you noticed on this page</p>
+                    <h1 class="tidy-feedback-form-title">${t("Your feedback", locale)}</h1>
+                    <p class="tidy-feedback-form-lead">${t("Tell us what you noticed on this page", locale)}</p>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-created-by">Your email address</label>
+                        <label class="form-label" for="tidy-created-by">${t("Your email address", locale)}</label>
                         <input class="form-control" type="email" name="created_by" id="tidy-created-by"
-                               placeholder="Your email address">
+                               placeholder="${t("Your email address", locale)}">
                     </div>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-description">Description</label>
+                        <label class="form-label" for="tidy-description">${t("Description", locale)}</label>
                         <textarea class="form-control" name="description" id="tidy-description"
-                                  placeholder="Describe what happened and what you expected"></textarea>
+                                  placeholder="${t("Describe what happened and what you expected", locale)}"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" title="Ctrl+Enter">Submit feedback</button>
-                    <button type="button" class="btn btn-cancel" data-tidy-feedback-action="cancel" title="Escape">Cancel</button>
+                    <button type="submit" class="btn btn-primary" title="Ctrl+Enter">${t("Submit feedback", locale)}</button>
+                    <button type="button" class="btn btn-cancel" data-tidy-feedback-action="cancel" title="Escape">${t("Cancel", locale)}</button>
                 </form>
             </div>
         `;
@@ -153,12 +156,12 @@ import { initKeyboardShortcuts } from "./component/keyboard";
             endpoint: endpoint,
             apiKey: apiKey,
             messages: {
-                "Taking screenshot \u2026": "Taking screenshot \u2026",
-                "Error taking screenshot": "Error taking screenshot",
-                "Sending feedback \u2026": "Sending feedback \u2026",
-                "Feedback created": "Feedback created",
-                "Existing feedback": "Existing feedback",
-                "Click an element to select": "Click an element to select",
+                "Taking screenshot \u2026": t("Taking screenshot \u2026", locale),
+                "Error taking screenshot": t("Error taking screenshot", locale),
+                "Sending feedback \u2026": t("Sending feedback \u2026", locale),
+                "Feedback created": t("Feedback created", locale),
+                "Existing feedback": t("Existing feedback", locale),
+                "Click an element to select": t("Click an element to select", locale),
             },
         };
 
