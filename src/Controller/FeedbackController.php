@@ -76,9 +76,14 @@ class FeedbackController extends AbstractController
     }
 
     #[Route('/feedback/{id}/report', name: 'app_feedback_report', methods: ['POST'])]
-    public function reportFeedback(string $id, FreescoutService $freescoutService): Response
+    public function reportFeedback(string $id, Request $request, FreescoutService $freescoutService): Response
     {
         $feedback = $this->entityFinder->findFeedbackOrFail($id);
+
+        $note = $request->request->get('note');
+        if ($note) {
+            $feedback->setNote($note);
+        }
 
         try {
             $freescoutService->createConversation($feedback);
@@ -98,9 +103,14 @@ class FeedbackController extends AbstractController
     }
 
     #[Route('/feedback/{id}/change-request', name: 'app_feedback_change_request', methods: ['POST'])]
-    public function createChangeRequest(string $id, LeantimeService $leantimeService): Response
+    public function createChangeRequest(string $id, Request $request, LeantimeService $leantimeService): Response
     {
         $feedback = $this->entityFinder->findFeedbackOrFail($id);
+
+        $note = $request->request->get('note');
+        if ($note) {
+            $feedback->setNote($note);
+        }
 
         try {
             $leantimeService->createIssue($feedback);
