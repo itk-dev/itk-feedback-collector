@@ -122,9 +122,9 @@
 
     {% if feedback.data.image is defined and feedback.data.image %}
         <div id="screenshot-overlay" hidden
-             class="fixed inset-0 z-50 bg-ink/90 flex items-center justify-center cursor-pointer p-6"
+             class="fixed inset-0 z-50 bg-ink/90 overflow-y-auto cursor-pointer p-6"
              onclick="this.hidden=true">
-            <img src="{{ feedback.data.image }}" alt="{{ 'Screenshot'|trans }}" class="max-w-full max-h-full rounded-3 shadow-3">
+            <img src="{{ feedback.data.image }}" alt="{{ 'Screenshot'|trans }}" class="mx-auto w-11/12 rounded-3 shadow-3">
         </div>
     {% endif %}
 
