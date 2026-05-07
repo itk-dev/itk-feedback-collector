@@ -344,7 +344,7 @@ button.tidy-feedback-items-toggle[type="button"]:active {
 
 .form-row:not(.required) label::after {
     margin-left: 10px;
-    content: "(optional)";
+    content: attr(data-optional-label);
     color: var(--color-gray-500);
     font-weight: normal;
 }

@@ -8,6 +8,7 @@ use App\Repository\WebsiteRepository;
 use App\Service\FreescoutService;
 use App\Service\LeantimeService;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
+    public function __construct(
+        private readonly LoggerInterface $logger,
+    ) {
+    }
     #[Route('/websites', name: 'app_admin_website_index')]
     public function indexWebsites(WebsiteRepository $websiteRepository): Response
     {
@@ -95,8 +100,11 @@ class AdminController extends AbstractController
             foreach ($mailboxes as $id => $name) {
                 $mailboxChoices[$name] = $id;
             }
-        } catch (\Exception) {
-            // FreeScout not configured or unreachable
+        } catch (\Exception $e) {
+            $this->logger->warning('Failed to fetch FreeScout mailboxes: {message}', [
+                'message' => $e->getMessage(),
+                'exception' => $e,
+            ]);
         }
 
         return $mailboxChoices;
@@ -110,8 +118,11 @@ class AdminController extends AbstractController
             foreach ($projects as $id => $name) {
                 $projectChoices[$name] = $id;
             }
-        } catch (\Exception) {
-            // Leantime not configured or unreachable
+        } catch (\Exception $e) {
+            $this->logger->warning('Failed to fetch Leantime projects: {message}', [
+                'message' => $e->getMessage(),
+                'exception' => $e,
+            ]);
         }
 
         return $projectChoices;

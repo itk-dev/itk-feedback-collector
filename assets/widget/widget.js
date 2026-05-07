@@ -75,13 +75,13 @@ import { t } from "./translations.js";
                     <p class="tidy-feedback-form-lead">${t("Tell us what you noticed on this page", locale)}</p>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-created-by">${t("Your email address", locale)}</label>
+                        <label class="form-label" for="tidy-created-by" data-optional-label="${t("(optional)", locale)}">${t("Your email address", locale)}</label>
                         <input class="form-control" type="email" name="created_by" id="tidy-created-by"
                                placeholder="${t("Your email address", locale)}">
                     </div>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-description">${t("Description", locale)}</label>
+                        <label class="form-label" for="tidy-description" data-optional-label="${t("(optional)", locale)}">${t("Description", locale)}</label>
                         <textarea class="form-control" name="description" id="tidy-description"
                                   placeholder="${t("Describe what happened and what you expected", locale)}"></textarea>
                     </div>

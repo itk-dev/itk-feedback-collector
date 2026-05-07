@@ -16,6 +16,7 @@ const translations = {
         "Feedback created": "Feedback oprettet",
         "Existing feedback": "Eksisterende feedback",
         "Click an element to select": "Klik på et element for at vælge",
+        "(optional)": "(valgfrit)",
     },
 };
 
