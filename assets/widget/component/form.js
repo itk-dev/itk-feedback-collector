@@ -149,19 +149,27 @@ export function initFormSubmit(ctx) {
 
         try {
             const el = document.body;
-            const result = await snapdom(el, { scale: 1 });
+
+            // Cap DPR to avoid exceeding mobile canvas size limits
+            // (e.g. iOS Safari ~16.7 MP). Using dpr:1 keeps the
+            // canvas small while still capturing the full viewport.
+            const result = await snapdom(el, { scale: 1, dpr: 1 });
 
             let image = result.toRaw();
             for (const method of ["toWebp", "toPng", "toJpg"]) {
-                const img = await result[method]();
-                if (img.src.length < image.length) {
-                    image = img.src;
+                try {
+                    const img = await result[method]();
+                    if (img.src.length < image.length) {
+                        image = img.src;
+                    }
+                } catch {
+                    // Format not supported, skip.
                 }
             }
 
             data.image = image;
         } catch (error) {
-            ctx.showMessage("Error taking screenshot", "danger");
+            console.warn("TidyFeedback: screenshot failed", error);
         }
 
         // Restore widget after capture
