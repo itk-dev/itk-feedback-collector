@@ -156,12 +156,18 @@ import { t } from "./translations.js";
             endpoint: endpoint,
             apiKey: apiKey,
             messages: {
-                "Taking screenshot \u2026": t("Taking screenshot \u2026", locale),
+                "Taking screenshot \u2026": t(
+                    "Taking screenshot \u2026",
+                    locale,
+                ),
                 "Error taking screenshot": t("Error taking screenshot", locale),
                 "Sending feedback \u2026": t("Sending feedback \u2026", locale),
                 "Feedback created": t("Feedback created", locale),
                 "Existing feedback": t("Existing feedback", locale),
-                "Click an element to select": t("Click an element to select", locale),
+                "Click an element to select": t(
+                    "Click an element to select",
+                    locale,
+                ),
             },
         };
 

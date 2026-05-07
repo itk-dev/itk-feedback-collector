@@ -21,6 +21,7 @@ class AdminController extends AbstractController
         private readonly LoggerInterface $logger,
     ) {
     }
+
     #[Route('/websites', name: 'app_admin_website_index')]
     public function indexWebsites(WebsiteRepository $websiteRepository): Response
     {
