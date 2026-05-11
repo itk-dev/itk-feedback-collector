@@ -120,8 +120,8 @@ Add the script tag to the target website's HTML:
 
 ```html
 <script
-    src="https://your-collector-domain.com/build/widget/widget.js"
-    data-api-key="YOUR-API-KEY"
+  src="https://your-collector-domain.com/build/widget/widget.js"
+  data-api-key="YOUR-API-KEY"
 ></script>
 ```
 
@@ -175,18 +175,18 @@ your site. It is available for both Drupal and Symfony.
 
 1. Require the package:
 
-    ```bash
-    composer require itk-dev/itk-feedback-client
-    ```
+   ```bash
+   composer require itk-dev/itk-feedback-client
+   ```
 
 2. Create a website entry in the collector admin and copy the API key.
 
 3. Add the following to the client site's `.env.local`:
 
-    ```dotenv
-    ITK_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
-    ITK_FEEDBACK_CLIENT_API_KEY=your-api-key
-    ```
+   ```dotenv
+   ITK_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
+   ITK_FEEDBACK_CLIENT_API_KEY=your-api-key
+   ```
 
 See the [itk-feedback-client](https://github.com/itk-dev/itk-feedback-client)
 repository for full documentation and framework-specific instructions.
@@ -205,8 +205,8 @@ keys for the test sites automatically. The collector's own integrations
 (FreeScout, Leantime) must be configured separately via `.env.local` and the
 admin panel.
 
-| Site      | URL                                       |
-| --------- | ----------------------------------------- |
+| Site      | URL                                      |
+| --------- | ---------------------------------------- |
 | Collector | `itk-feedback-collector.local.itkdev.dk` |
 | Drupal    | `itk-feedback-drupal.local.itkdev.dk`    |
 | Symfony   | `itk-feedback-symfony.local.itkdev.dk`   |
