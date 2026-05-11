@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Edit Website'|trans }}: {{ website.websiteId }}{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold text-ink mb-2">{{ 'Edit Website'|trans }}: {{ website.websiteId }}</h1>
+    <p class="mb-5 text-sm"><a href="{{ path('app_admin_website_index') }}">← {{ 'Back to websites'|trans }}</a></p>
+
+    {% for flash in app.flashes('success') %}
+        <div class="bg-green/10 border border-green/30 text-green rounded-2 px-4 py-3 mb-4">
+            {{ flash }}
+        </div>
+    {% endfor %}
+
+    <div class="bg-paper rounded-3 shadow-2 p-5 max-w-lg">
+        {{ form(form) }}
+    </div>
+{% endblock %}
