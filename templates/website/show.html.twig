@@ -39,8 +39,18 @@
         </div>
     </details>
 
-    <h2 class="text-xl font-bold text-ink mb-3">{{ 'Feedback'|trans }} ({{ feedbacks|length }})</h2>
-    <div class="bg-paper rounded-3 shadow-2 overflow-hidden mb-6">
+    <h2 class="text-xl font-bold text-ink mb-3">{{ 'Feedback'|trans }}</h2>
+    <div class="flex border-b border-slate-200 mb-0">
+        <a href="{{ path('app_website_show', {id: website.id}) }}"
+           class="px-4 py-2 text-sm font-medium {{ activeTab == 'unhandled' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-slate-500 hover:text-slate-700' }}">
+            {{ 'Unhandled'|trans }} ({{ unhandledCount }})
+        </a>
+        <a href="{{ path('app_website_show_handled', {id: website.id}) }}"
+           class="px-4 py-2 text-sm font-medium {{ activeTab == 'handled' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-slate-500 hover:text-slate-700' }}">
+            {{ 'Handled'|trans }} ({{ handledCount }})
+        </a>
+    </div>
+    <div class="bg-paper rounded-b-3 shadow-2 overflow-hidden mb-6">
         <table class="w-full text-sm">
             <thead>
                 <tr class="bg-slate-50 text-left text-slate-700 font-medium">
@@ -59,6 +69,15 @@
                         <td class="px-4 py-3 text-center">
                             <div class="inline-flex items-center gap-3">
                                 <a href="{{ path('app_feedback_show', {id: feedback.id}) }}">{{ 'Show'|trans }}</a>
+                                {% if not feedback.handled %}
+                                    <form method="post" action="{{ path('app_feedback_archive', {id: feedback.id}) }}">
+                                        <button type="submit" class="text-warning underline text-sm bg-transparent border-none cursor-pointer p-0">{{ 'Archive'|trans }}</button>
+                                    </form>
+                                {% else %}
+                                    <form method="post" action="{{ path('app_feedback_unarchive', {id: feedback.id}) }}">
+                                        <button type="submit" class="text-warning underline text-sm bg-transparent border-none cursor-pointer p-0">{{ 'Unarchive'|trans }}</button>
+                                    </form>
+                                {% endif %}
                                 <form method="post" action="{{ path('app_feedback_delete', {id: feedback.id}) }}"
                                       onsubmit="return confirm('{{ 'Delete this feedback?'|trans }}')">
                                     <button type="submit" class="text-error underline text-sm bg-transparent border-none cursor-pointer p-0">{{ 'Delete'|trans }}</button>
