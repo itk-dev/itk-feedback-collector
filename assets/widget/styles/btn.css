@@ -1,0 +1,34 @@
+.btn {
+  border-radius: var(--radius-sm);
+  padding: 0.5em 1.1em;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  transition: var(--transform-colors-in);
+}
+
+.btn-primary {
+  color: var(--color-text-light);
+  background-color: var(--color-primary);
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px hsla(252, 55%, 30%, 0.25);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  color: var(--color-text-light);
+  background-color: var(--color-primary-300);
+}
+
+.btn-cancel {
+  color: var(--color-gray-700);
+  background-color: transparent;
+  border: 1px solid var(--color-gray-200);
+}
+
+.btn-cancel:hover,
+.btn-cancel:active {
+  color: var(--color-text-dark);
+  background-color: var(--color-gray-200);
+  border-color: var(--color-gray-300);
+}

@@ -15,16 +15,16 @@ messages on container restarts.
 # docker-compose.server.override.yml
 
 services:
-    rabbit:
-        image: rabbitmq:3.9-management-alpine
-        hostname: "${COMPOSE_PROJECT_NAME}"
-        networks:
-            - app
-            - frontend
-        environment:
-            - "RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}"
-            - "RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}"
-            - "RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}"
-        volumes:
-            - ".docker/data/rabbitmq:/var/lib/rabbitmq/mnesia/"
+  rabbit:
+    image: rabbitmq:3.9-management-alpine
+    hostname: "${COMPOSE_PROJECT_NAME}"
+    networks:
+      - app
+      - frontend
+    environment:
+      - "RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}"
+      - "RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}"
+      - "RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}"
+    volumes:
+      - ".docker/data/rabbitmq:/var/lib/rabbitmq/mnesia/"
 ```

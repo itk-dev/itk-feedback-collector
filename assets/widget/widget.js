@@ -1,0 +1,253 @@
+import widgetCss from "./styles/widget.css";
+import btnCss from "./styles/btn.css";
+import variablesCss from "./styles/variables.css";
+import widgetRegionCss from "./styles/widget-region.css";
+import { makeResizableDiv } from "./component/region";
+import { showMessage } from "./component/messages";
+import { enterSelectMode } from "./component/select-mode";
+import {
+  renderItemsList,
+  refreshFeedbackData,
+  showItemsPanel,
+  hideItemsPanel,
+} from "./component/items-panel";
+import {
+  makeFormDraggable,
+  hideFormDragHandle,
+  prefillEmail,
+  showFormAfterSelection,
+  showForm,
+  hideForm,
+  initFormSubmit,
+} from "./component/form";
+import { initKeyboardShortcuts } from "./component/keyboard";
+import { t } from "./translations.js";
+
+(function () {
+  "use strict";
+
+  const script = document.currentScript;
+  const apiKey = script.getAttribute("data-api-key");
+  const srcUrl = new URL(script.src);
+  const endpoint = srcUrl.origin + "/api/feedback";
+
+  if (!apiKey) {
+    console.error("ItkFeedback: data-api-key attribute is required.");
+    return;
+  }
+
+  const locale = document.documentElement.lang?.split("-")[0] || "en";
+
+  function init() {
+    // Create the widget host element with Shadow DOM
+    const host = document.createElement("div");
+    host.id = "itk-feedback";
+    document.body.appendChild(host);
+
+    const shadow = host.attachShadow({ mode: "open" });
+
+    // Inject CSS into shadow DOM
+    const style = document.createElement("style");
+    style.textContent = variablesCss + btnCss + widgetCss;
+    shadow.appendChild(style);
+
+    // Inject widget HTML into shadow DOM
+    shadow.innerHTML += `
+            <div class="itk-feedback">
+                <div hidden class="itk-feedback-message"
+                     style="position:fixed;top:0.5em;left:50%;transform:translateX(-50%);z-index:10002"></div>
+                <div hidden class="itk-feedback-start">
+                    <button hidden type="button" class="itk-feedback-start-count">
+                        <span class="itk-feedback-badge">0</span>
+                    </button>
+                    <button type="button" class="itk-feedback-start-add"
+                            data-itk-feedback-action="start"
+                            title="Shift+C">${t("+ Add feedback", locale)}</button>
+                </div>
+
+                <form hidden class="itk-feedback-form" method="post">
+                    <div hidden class="itk-feedback-draggable-handle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <h1 class="itk-feedback-form-title">${t("Your feedback", locale)}</h1>
+                    <p class="itk-feedback-form-lead">${t("Tell us what you noticed on this page", locale)}</p>
+
+                    <div class="form-row mb-3">
+                        <label class="form-label" for="itk-created-by" data-optional-label="${t("(optional)", locale)}">${t("Your email address", locale)}</label>
+                        <input class="form-control" type="email" name="created_by" id="itk-created-by"
+                               placeholder="${t("Your email address", locale)}">
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <label class="form-label" for="itk-description" data-optional-label="${t("(optional)", locale)}">${t("Description", locale)}</label>
+                        <textarea class="form-control" name="description" id="itk-description"
+                                  placeholder="${t("Describe what happened and what you expected", locale)}"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" title="Ctrl+Enter">${t("Submit feedback", locale)}</button>
+                    <button type="button" class="btn btn-cancel" data-itk-feedback-action="cancel" title="Escape">${t("Cancel", locale)}</button>
+                </form>
+            </div>
+        `;
+
+    // Create region element OUTSIDE shadow DOM
+    const regionContainer = document.createElement("div");
+    regionContainer.id = "itk-feedback-region";
+    regionContainer.hidden = true;
+
+    const regionStyle = document.createElement("style");
+    regionStyle.textContent = variablesCss + widgetRegionCss;
+    regionContainer.appendChild(regionStyle);
+
+    const overlays = document.createElement("div");
+    overlays.className = "overlays";
+    for (const pos of ["top", "left", "right", "bottom"]) {
+      const div = document.createElement("div");
+      div.className = pos;
+      div.textContent = pos;
+      overlays.appendChild(div);
+    }
+    regionContainer.appendChild(overlays);
+
+    const resizable = document.createElement("div");
+    resizable.className = "resizable";
+    const resizers = document.createElement("div");
+    resizers.className = "resizers";
+    for (const corner of [
+      "top-left",
+      "top-right",
+      "bottom-left",
+      "bottom-right",
+    ]) {
+      const div = document.createElement("div");
+      div.className = `resizer ${corner}`;
+      resizers.appendChild(div);
+    }
+    resizable.appendChild(resizers);
+    regionContainer.appendChild(resizable);
+
+    document.body.appendChild(regionContainer);
+
+    // Try to register CSS custom property for animated border
+    try {
+      CSS.registerProperty({
+        name: "--border-angle",
+        syntax: "<angle>",
+        inherits: false,
+        initialValue: "0deg",
+      });
+    } catch {
+      // Already registered or not supported
+    }
+
+    // Set up context
+    const root = shadow;
+    const widget = root;
+
+    const getElement = (selector) => widget.querySelector(selector);
+    const getActionElement = (action) =>
+      getElement(`[data-itk-feedback-action="${action}"]`);
+    const getDocumentElement = (selector) => document.querySelector(selector);
+
+    const config = {
+      endpoint: endpoint,
+      apiKey: apiKey,
+      messages: {
+        "Taking screenshot \u2026": t("Taking screenshot \u2026", locale),
+        "Error taking screenshot": t("Error taking screenshot", locale),
+        "Sending feedback \u2026": t("Sending feedback \u2026", locale),
+        "Feedback created": t("Feedback created", locale),
+        "Existing feedback": t("Existing feedback", locale),
+        "Click an element to select": t("Click an element to select", locale),
+      },
+    };
+
+    const ctx = {
+      config,
+      form: null,
+      start: null,
+      startCount: null,
+      region: null,
+      dragCleanup: null,
+      feedbackItems: [],
+      selectedSelector: null,
+      itemsPanelMode: false,
+
+      getElement,
+      getDocumentElement,
+
+      showMessage: (message, type) => showMessage(root, config, message, type),
+      enterSelectMode: () => enterSelectMode(ctx),
+      positionRegion: (rect) => {
+        if (ctx.region) {
+          ctx.region.parentNode.hidden = false;
+          ctx.region.style.left = rect.left + "px";
+          ctx.region.style.top = rect.top + "px";
+          ctx.region.style.width = Math.max(rect.width, 20) + "px";
+          ctx.region.style.height = Math.max(rect.height, 20) + "px";
+          makeResizableDiv(ctx.region);
+        }
+      },
+      hideRegion: () => {
+        if (ctx.region) {
+          ctx.region.parentNode.hidden = true;
+        }
+      },
+      makeFormDraggable: () => makeFormDraggable(ctx),
+      hideFormDragHandle: () => hideFormDragHandle(ctx),
+      showFormAfterSelection: () => showFormAfterSelection(ctx),
+      showForm: () => showForm(ctx),
+      hideForm: (reset) => hideForm(ctx, reset),
+      showItemsPanel: () => showItemsPanel(ctx),
+      hideItemsPanel: () => hideItemsPanel(ctx),
+      refreshFeedbackData: () => refreshFeedbackData(ctx),
+      renderItemsList: (listOnly) => renderItemsList(ctx, listOnly),
+    };
+
+    ctx.form = getElement(".itk-feedback-form");
+    ctx.start = getElement(".itk-feedback-start");
+    ctx.startCount = getElement(".itk-feedback-start-count");
+    ctx.region = getDocumentElement("#itk-feedback-region > .resizable");
+
+    const startAdd = getActionElement("start");
+    const cancel = getActionElement("cancel");
+
+    if (ctx.form) {
+      prefillEmail(ctx.form);
+      initFormSubmit(ctx);
+    }
+
+    if (ctx.start) {
+      ctx.start.hidden = false;
+
+      if (startAdd) {
+        startAdd.addEventListener("click", () => {
+          ctx.showForm();
+        });
+      }
+
+      if (ctx.startCount) {
+        ctx.startCount.addEventListener("click", () => {
+          ctx.showItemsPanel();
+        });
+      }
+    }
+
+    if (cancel) {
+      cancel.addEventListener("click", () => {
+        ctx.showMessage("");
+        ctx.hideForm(true);
+      });
+    }
+
+    initKeyboardShortcuts(ctx);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();

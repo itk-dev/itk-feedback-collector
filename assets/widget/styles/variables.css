@@ -1,0 +1,80 @@
+/* General custom properties for use with the Feedback tool */
+:root,
+.itk-feedback {
+  /* Colors */
+  --color-text-light: white;
+  --color-text-dark: black;
+
+  --color-gray-100: hsla(255, 5%, 95%, 1);
+  --color-gray-200: hsla(255, 5%, 85%, 1);
+  --color-gray-300: hsla(255, 5%, 75%, 1);
+  --color-gray-400: hsla(255, 5%, 65%, 1);
+  --color-gray-500: hsla(255, 5%, 55%, 1);
+  --color-gray-600: hsla(252, 5%, 45%, 1);
+  --color-gray-700: hsla(255, 5%, 35%, 1);
+  --color-gray-800: hsla(255, 5%, 25%, 1);
+  --color-gray-900: hsla(255, 5%, 15%, 1);
+
+  --color-border: var(--color-gray-300);
+
+  --color-primary: hsla(252, 55%, 46%, 1);
+  --color-primary-300: hsla(252, 55%, 36%, 1);
+  --color-primary-700: hsla(252, 55%, 56%, 1);
+
+  --color-danger: hsla(0, 55%, 46%, 1);
+  --color-danger-100: hsla(0, 55%, 16%, 1);
+  --color-danger-300: hsla(0, 55%, 36%, 1);
+  --color-danger-700: hsla(0, 55%, 76%, 1);
+  --color-danger-900: hsla(0, 55%, 96%, 1);
+
+  --color-warning: hsla(35, 55%, 46%, 1);
+  --color-warning-100: hsla(35, 55%, 16%, 1);
+  --color-warning-300: hsla(35, 55%, 36%, 1);
+  --color-warning-700: hsla(35, 55%, 76%, 1);
+  --color-warning-900: hsla(35, 55%, 96%, 1);
+
+  --color-success: hsla(140, 55%, 46%, 1);
+  --color-success-100: hsla(140, 55%, 16%, 1);
+  --color-success-300: hsla(140, 55%, 36%, 1);
+  --color-success-700: hsla(140, 55%, 76%, 1);
+  --color-success-900: hsla(140, 55%, 96%, 1);
+
+  /* Font sizes */
+  --font-size-sm: 0.9em;
+  --font-size-md: 1.1em;
+  --font-size-lg: 1.2em;
+
+  /* Shadows */
+  --shadow-base: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Position helpers */
+  --position-top: 5vh;
+
+  /* Width helpers */
+  --width-base: 20em;
+
+  /* Border radius */
+  --radius-lg: 12px;
+  --radius-base: 8px;
+  --radius-sm: 6px;
+
+  /* Spacing */
+  --spacer-xs: 0.25em;
+  --spacer-sm: 0.5em;
+  --spacer-md: 1em;
+  --spacer-lg: 2em;
+
+  /* Z-index */
+  --z-index-region: 10000;
+  --z-index-form: 10001;
+  --z-index-messages: 10002;
+
+  /* Transform */
+  --transform-colors-out:
+    color 0.2s ease-in, background-color 0.2s ease-in, border-color 0.2s ease-in;
+  --transform-colors-in:
+    color 0.4s ease-in-out, background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+}
