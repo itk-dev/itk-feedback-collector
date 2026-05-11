@@ -1,6 +1,6 @@
 {
     "name": "itk-dev/itk-feedback-collector",
-    "description": "Tidy Feedback Collector",
+    "description": "Itk Feedback Collector",
     "license": "proprietary",
     "type": "project",
     "require": {

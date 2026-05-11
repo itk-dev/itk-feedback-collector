@@ -163,12 +163,12 @@ tasks:
     dev:env:drupal:
         desc: Set itk-feedback-client env vars for Drupal site
         cmds:
-            - bash -c 'printf "TIDY_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}\nTIDY_FEEDBACK_CLIENT_API_KEY=%s\n" "$(docker compose exec -T phpfpm bin/console app:website:api-key itk-feedback-drupal)" > {{.DRUPAL_DIR}}/.env.local'
+            - bash -c 'printf "ITK_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}\nITK_FEEDBACK_CLIENT_API_KEY=%s\n" "$(docker compose exec -T phpfpm bin/console app:website:api-key itk-feedback-drupal)" > {{.DRUPAL_DIR}}/.env.local'
 
     dev:env:symfony:
         desc: Set itk-feedback-client env vars for Symfony site
         cmds:
-            - bash -c 'printf "TIDY_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}\nTIDY_FEEDBACK_CLIENT_API_KEY=%s\n" "$(docker compose exec -T phpfpm bin/console app:website:api-key itk-feedback-symfony)" > {{.SYMFONY_DIR}}/.env.local'
+            - bash -c 'printf "ITK_FEEDBACK_CLIENT_URL=https://{{.COLLECTOR_DOMAIN}}\nITK_FEEDBACK_CLIENT_API_KEY=%s\n" "$(docker compose exec -T phpfpm bin/console app:website:api-key itk-feedback-symfony)" > {{.SYMFONY_DIR}}/.env.local'
 
     dev:start:
         desc: Start all three sites

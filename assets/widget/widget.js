@@ -32,7 +32,7 @@ import { t } from "./translations.js";
     const endpoint = srcUrl.origin + "/api/feedback";
 
     if (!apiKey) {
-        console.error("TidyFeedback: data-api-key attribute is required.");
+        console.error("ItkFeedback: data-api-key attribute is required.");
         return;
     }
 

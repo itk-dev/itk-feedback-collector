@@ -169,7 +169,7 @@ export function initFormSubmit(ctx) {
 
             data.image = image;
         } catch (error) {
-            console.warn("TidyFeedback: screenshot failed", error);
+            console.warn("ItkFeedback: screenshot failed", error);
         }
 
         // Restore widget after capture

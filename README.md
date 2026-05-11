@@ -1,4 +1,4 @@
-# Tidy Feedback Collector
+# Itk Feedback Collector
 
 A Symfony application for collecting user feedback from websites. Website owners
 embed a JavaScript widget on their site, allowing visitors to submit visual
@@ -184,8 +184,8 @@ your site. It is available for both Drupal and Symfony.
 3. Add the following to the client site's `.env.local`:
 
     ```dotenv
-    TIDY_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
-    TIDY_FEEDBACK_CLIENT_API_KEY=your-api-key
+    ITK_FEEDBACK_CLIENT_URL=https://your-collector-domain.com
+    ITK_FEEDBACK_CLIENT_API_KEY=your-api-key
     ```
 
 See the [itk-feedback-client](https://github.com/itk-dev/itk-feedback-client)
