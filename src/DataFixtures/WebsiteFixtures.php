@@ -17,8 +17,8 @@ class WebsiteFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $websites = [
-            [self::WEBSITE_DRUPAL, 'https://tidy-feedback-drupal.local.itkdev.dk', 'tidy-feedback-drupal'],
-            [self::WEBSITE_SYMFONY, 'https://tidy-feedback-symfony.local.itkdev.dk', 'tidy-feedback-symfony'],
+            [self::WEBSITE_DRUPAL, 'https://itk-feedback-drupal.local.itkdev.dk', 'itk-feedback-drupal'],
+            [self::WEBSITE_SYMFONY, 'https://itk-feedback-symfony.local.itkdev.dk', 'itk-feedback-symfony'],
             [self::WEBSITE_TEST_1, 'https://www.example-one.dk', 'test-site-1'],
             [self::WEBSITE_TEST_2, 'https://www.example-two.dk', 'test-site-2'],
             [self::WEBSITE_TEST_3, 'https://www.example-three.dk', 'test-site-3'],

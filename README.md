@@ -30,7 +30,7 @@ task console -- doctrine:migrations:migrate --no-interaction
 task console -- doctrine:fixtures:load --no-interaction
 ```
 
-The site is available at `tidy-feedback-collector.local.itkdev.dk`.
+The site is available at `itk-feedback-collector.local.itkdev.dk`.
 
 ## Authentication
 
@@ -176,7 +176,7 @@ your site. It is available for both Drupal and Symfony.
 1. Require the package:
 
     ```bash
-    composer require itk-dev/tidy-feedback-client
+    composer require itk-dev/itk-feedback-client
     ```
 
 2. Create a website entry in the collector admin and copy the API key.
@@ -188,7 +188,7 @@ your site. It is available for both Drupal and Symfony.
     TIDY_FEEDBACK_CLIENT_API_KEY=your-api-key
     ```
 
-See the [tidy-feedback-client](https://github.com/itk-dev/tidy-feedback-client)
+See the [itk-feedback-client](https://github.com/itk-dev/itk-feedback-client)
 repository for full documentation and framework-specific instructions.
 
 ## Test Sites
@@ -207,6 +207,6 @@ admin panel.
 
 | Site      | URL                                       |
 | --------- | ----------------------------------------- |
-| Collector | `tidy-feedback-collector.local.itkdev.dk` |
-| Drupal    | `tidy-feedback-drupal.local.itkdev.dk`    |
-| Symfony   | `tidy-feedback-symfony.local.itkdev.dk`   |
+| Collector | `itk-feedback-collector.local.itkdev.dk` |
+| Drupal    | `itk-feedback-drupal.local.itkdev.dk`    |
+| Symfony   | `itk-feedback-symfony.local.itkdev.dk`   |

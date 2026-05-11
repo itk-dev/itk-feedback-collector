@@ -22,15 +22,15 @@ export function makeFormDraggable(ctx) {
         return;
     }
 
-    const tidyFeedbackDiv = ctx.getElement(".tidy-feedback-form");
-    const dragHandle = ctx.getElement(".tidy-feedback-draggable-handle");
+    const itkFeedbackDiv = ctx.getElement(".itk-feedback-form");
+    const dragHandle = ctx.getElement(".itk-feedback-draggable-handle");
 
-    if (tidyFeedbackDiv && dragHandle) {
+    if (itkFeedbackDiv && dragHandle) {
         dragHandle.hidden = false;
 
-        updateEdgeClasses(tidyFeedbackDiv);
+        updateEdgeClasses(itkFeedbackDiv);
 
-        ctx.dragCleanup = makeDraggable(tidyFeedbackDiv, dragHandle, {
+        ctx.dragCleanup = makeDraggable(itkFeedbackDiv, dragHandle, {
             constrainToViewport: true,
             onDrag: (_e, el) => updateEdgeClasses(el),
             onDragEnd: (_e, el) => updateEdgeClasses(el),
@@ -39,9 +39,9 @@ export function makeFormDraggable(ctx) {
 }
 
 export function hideFormDragHandle(ctx) {
-    const tidyFeedbackDiv = ctx.getDocumentElement("#tidy-feedback");
-    const dragHandle = tidyFeedbackDiv?.querySelector(
-        ".tidy-feedback-draggable-handle",
+    const itkFeedbackDiv = ctx.getDocumentElement("#itk-feedback");
+    const dragHandle = itkFeedbackDiv?.querySelector(
+        ".itk-feedback-draggable-handle",
     );
 
     if (dragHandle) {
@@ -52,7 +52,7 @@ export function hideFormDragHandle(ctx) {
 export function prefillEmail(form) {
     const emailInput = form.querySelector('[name="created_by"]');
     if (emailInput && !emailInput.value && !emailInput.readOnly) {
-        const cachedEmail = localStorage.getItem("tidy-feedback-email");
+        const cachedEmail = localStorage.getItem("itk-feedback-email");
         if (cachedEmail) {
             emailInput.value = cachedEmail;
         }
@@ -62,7 +62,7 @@ export function prefillEmail(form) {
 function restoreCachedEmail(form) {
     const emailInput = form.querySelector('[name="created_by"]');
     if (emailInput && !emailInput.readOnly) {
-        const cachedEmail = localStorage.getItem("tidy-feedback-email");
+        const cachedEmail = localStorage.getItem("itk-feedback-email");
         if (cachedEmail) {
             emailInput.value = cachedEmail;
         }
@@ -95,13 +95,13 @@ export function hideForm(ctx, reset) {
     hideFormDragHandle(ctx);
     ctx.itemsPanelMode = false;
     if (ctx.form) {
-        ctx.form.querySelector(".tidy-feedback-items-header")?.remove();
+        ctx.form.querySelector(".itk-feedback-items-header")?.remove();
         ctx.form.hidden = true;
 
         // Restore form field visibility in case items panel was open.
         const selectors = [
-            ".tidy-feedback-form-title",
-            ".tidy-feedback-form-lead",
+            ".itk-feedback-form-title",
+            ".itk-feedback-form-lead",
             ".form-row",
             'button[type="submit"]',
             ".btn-cancel",
@@ -122,9 +122,9 @@ export function hideForm(ctx, reset) {
         ctx.start.hidden = false;
     }
 
-    const tidyFeedbackDiv = document.getElementById("tidy-feedback");
-    const dragHandle = tidyFeedbackDiv?.querySelector(
-        ".tidy-feedback-draggable-handle",
+    const itkFeedbackDiv = document.getElementById("itk-feedback");
+    const dragHandle = itkFeedbackDiv?.querySelector(
+        ".itk-feedback-draggable-handle",
     );
     if (dragHandle) {
         dragHandle.hidden = true;
@@ -144,7 +144,7 @@ export function initFormSubmit(ctx) {
         ctx.showMessage("Taking screenshot \u2026");
 
         // Hide widget form/messages before capturing screenshot (keep region visible)
-        const widgetHost = document.getElementById("tidy-feedback");
+        const widgetHost = document.getElementById("itk-feedback");
         if (widgetHost) widgetHost.style.display = "none";
 
         try {
@@ -213,7 +213,7 @@ export function initFormSubmit(ctx) {
                 if (201 === response.status) {
                     if (data.created_by) {
                         localStorage.setItem(
-                            "tidy-feedback-email",
+                            "itk-feedback-email",
                             data.created_by,
                         );
                     }

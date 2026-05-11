@@ -38,7 +38,7 @@ textarea.form-control {
 }
 
 /* Widget styles */
-.tidy-feedback-start {
+.itk-feedback-start {
     position: fixed;
     top: var(--position-top);
     right: 0;
@@ -54,12 +54,12 @@ textarea.form-control {
     overflow: hidden;
 }
 
-.tidy-feedback-start[hidden] {
+.itk-feedback-start[hidden] {
     display: none;
 }
 
-.tidy-feedback-start-count,
-.tidy-feedback-start-add {
+.itk-feedback-start-count,
+.itk-feedback-start-add {
     border: none;
     color: var(--color-text-light);
     font: inherit;
@@ -71,16 +71,16 @@ textarea.form-control {
     transition: background-color 0.2s ease;
 }
 
-.tidy-feedback-start-count {
+.itk-feedback-start-count {
     background-color: var(--color-primary);
     border-top-left-radius: var(--radius-base);
 }
 
-.tidy-feedback-start-count:hover {
+.itk-feedback-start-count:hover {
     background-color: var(--color-primary-300);
 }
 
-.tidy-feedback-start-add {
+.itk-feedback-start-add {
     background-color: var(--color-primary-300);
     border-left: 1px solid hsla(0, 0%, 100%, 0.2);
     border-top-right-radius: var(--radius-base);
@@ -89,16 +89,16 @@ textarea.form-control {
 }
 
 /* When count button is hidden, give the add button full border-radius */
-.tidy-feedback-start-count[hidden] + .tidy-feedback-start-add {
+.itk-feedback-start-count[hidden] + .itk-feedback-start-add {
     border-left: none;
     border-top-left-radius: var(--radius-base);
 }
 
-.tidy-feedback-start-add:hover {
+.itk-feedback-start-add:hover {
     background-color: var(--color-primary);
 }
 
-.tidy-feedback-badge {
+.itk-feedback-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -114,7 +114,7 @@ textarea.form-control {
 }
 
 /* Items-only panel header */
-.tidy-feedback-items-header {
+.itk-feedback-items-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,7 +124,7 @@ textarea.form-control {
     color: var(--color-text-dark);
 }
 
-.tidy-feedback-items-header .btn-cancel {
+.itk-feedback-items-header .btn-cancel {
     padding: var(--spacer-xs) var(--spacer-sm);
     font-size: 1.4em;
     line-height: 1;
@@ -134,11 +134,11 @@ textarea.form-control {
     color: var(--color-gray-600);
 }
 
-.tidy-feedback-items-header .btn-cancel:hover {
+.itk-feedback-items-header .btn-cancel:hover {
     color: var(--color-text-dark);
 }
 
-.tidy-feedback-form {
+.itk-feedback-form {
     position: fixed;
     width: var(--width-base);
     max-width: 100%;
@@ -157,31 +157,31 @@ textarea.form-control {
         border-color 0.2s ease;
 }
 
-.tidy-feedback-form.at-edge-right {
+.itk-feedback-form.at-edge-right {
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.tidy-feedback-form.at-edge-left {
+.itk-feedback-form.at-edge-left {
     border-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.tidy-feedback-form.at-edge-top {
+.itk-feedback-form.at-edge-top {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-.tidy-feedback-form.at-edge-bottom {
+.itk-feedback-form.at-edge-bottom {
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.tidy-feedback-draggable-handle {
+.itk-feedback-draggable-handle {
     position: absolute;
     top: 0;
     left: 0;
@@ -199,22 +199,22 @@ textarea.form-control {
     place-items: center;
 }
 
-.tidy-feedback-draggable-handle span {
+.itk-feedback-draggable-handle span {
     width: 2em;
     border-bottom: 1px solid var(--color-border);
 }
 
-.tidy-feedback-form-title {
+.itk-feedback-form-title {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 1em;
 }
 
-.tidy-feedback-form-lead {
+.itk-feedback-form-lead {
     margin-bottom: 1em;
 }
 
-.tidy-feedback-message {
+.itk-feedback-message {
     position: fixed;
     top: var(--spacer-sm);
     left: 50%;
@@ -228,26 +228,26 @@ textarea.form-control {
     border-radius: var(--radius-base);
 }
 
-.tidy-feedback-message.warning {
+.itk-feedback-message.warning {
     background-color: var(--color-warning-900);
     color: var(--color-warning-100);
     border-color: var(--color-warning-700);
 }
 
-.tidy-feedback-message.success {
+.itk-feedback-message.success {
     background-color: var(--color-success-900);
     color: var(--color-success-100);
     border-color: var(--color-success-700);
 }
 
-.tidy-feedback-message.danger {
+.itk-feedback-message.danger {
     background-color: var(--color-danger-900);
     color: var(--color-danger-100);
     border-color: var(--color-danger-700);
 }
 
 /* Animated border for the select-mode "Click an element" message */
-.tidy-feedback-message.select {
+.itk-feedback-message.select {
     border: 2px solid transparent;
     background:
         linear-gradient(var(--color-primary), var(--color-primary)) padding-box,
@@ -269,13 +269,13 @@ textarea.form-control {
     }
 }
 
-.tidy-feedback-items {
+.itk-feedback-items {
     margin-top: var(--spacer-md);
     border-top: 1px solid var(--color-gray-200);
     padding-top: var(--spacer-sm);
 }
 
-button.tidy-feedback-items-toggle[type="button"] {
+button.itk-feedback-items-toggle[type="button"] {
     width: 100%;
     text-align: left;
     background: transparent;
@@ -288,7 +288,7 @@ button.tidy-feedback-items-toggle[type="button"] {
     cursor: pointer;
 }
 
-button.tidy-feedback-items-toggle[type="button"]::before {
+button.itk-feedback-items-toggle[type="button"]::before {
     content: "\25B6";
     display: inline-block;
     margin-right: var(--spacer-xs);
@@ -296,18 +296,18 @@ button.tidy-feedback-items-toggle[type="button"]::before {
     transition: transform 0.2s ease;
 }
 
-button.tidy-feedback-items-toggle[type="button"].open::before {
+button.itk-feedback-items-toggle[type="button"].open::before {
     transform: rotate(90deg);
 }
 
-button.tidy-feedback-items-toggle[type="button"]:hover,
-button.tidy-feedback-items-toggle[type="button"]:active {
+button.itk-feedback-items-toggle[type="button"]:hover,
+button.itk-feedback-items-toggle[type="button"]:active {
     color: var(--color-text-dark);
     background-color: transparent;
     border: none;
 }
 
-.tidy-feedback-items-list {
+.itk-feedback-items-list {
     list-style: none;
     margin: var(--spacer-xs) 0 0;
     padding: 0;
@@ -318,11 +318,11 @@ button.tidy-feedback-items-toggle[type="button"]:active {
     gap: 2px;
 }
 
-.tidy-feedback-items-list li {
+.itk-feedback-items-list li {
     border-radius: var(--radius-sm);
 }
 
-.tidy-feedback-items-list a {
+.itk-feedback-items-list a {
     display: block;
     padding: var(--spacer-xs) 0;
     color: var(--color-gray-700);
@@ -333,7 +333,7 @@ button.tidy-feedback-items-toggle[type="button"]:active {
     font-size: var(--font-size-sm);
 }
 
-.tidy-feedback-items-list a:hover {
+.itk-feedback-items-list a:hover {
     color: var(--color-primary);
 }
 

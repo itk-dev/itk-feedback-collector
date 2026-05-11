@@ -23,7 +23,7 @@ class GetApiKeyCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('websiteId', InputArgument::REQUIRED, 'The website ID (e.g. tidy-feedback-drupal)');
+        $this->addArgument('websiteId', InputArgument::REQUIRED, 'The website ID (e.g. itk-feedback-drupal)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

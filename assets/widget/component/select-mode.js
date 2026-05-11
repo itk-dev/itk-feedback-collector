@@ -2,11 +2,11 @@ import unique from "@cypress/unique-selector";
 
 export function enterSelectMode(ctx) {
     const style = document.createElement("style");
-    style.dataset.tidyFeedbackSelecting = "";
+    style.dataset.itkFeedbackSelecting = "";
     style.textContent =
-        "body.tidy-feedback-selecting, body.tidy-feedback-selecting * { cursor: crosshair !important; }";
+        "body.itk-feedback-selecting, body.itk-feedback-selecting * { cursor: crosshair !important; }";
     document.head.appendChild(style);
-    document.body.classList.add("tidy-feedback-selecting");
+    document.body.classList.add("itk-feedback-selecting");
     ctx.showMessage("Click an element to select", "select");
 
     const primaryColor =
@@ -19,7 +19,7 @@ export function enterSelectMode(ctx) {
         document.removeEventListener("click", onClick, true);
         document.removeEventListener("keydown", onKeydown);
         document.removeEventListener("mousemove", onMousemove);
-        document.body.classList.remove("tidy-feedback-selecting");
+        document.body.classList.remove("itk-feedback-selecting");
         style.remove();
         if (hoveredElement) {
             hoveredElement.style.outline = "";
@@ -31,8 +31,8 @@ export function enterSelectMode(ctx) {
         const target = event.target;
 
         if (
-            target.closest("#tidy-feedback") ||
-            target.closest("#tidy-feedback-region")
+            target.closest("#itk-feedback") ||
+            target.closest("#itk-feedback-region")
         ) {
             return;
         }
@@ -72,8 +72,8 @@ export function enterSelectMode(ctx) {
         const target = event.target;
 
         if (
-            target.closest("#tidy-feedback") ||
-            target.closest("#tidy-feedback-region")
+            target.closest("#itk-feedback") ||
+            target.closest("#itk-feedback-region")
         ) {
             if (hoveredElement) {
                 hoveredElement.style.outline = "";

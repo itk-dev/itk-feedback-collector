@@ -41,7 +41,7 @@ import { t } from "./translations.js";
     function init() {
         // Create the widget host element with Shadow DOM
         const host = document.createElement("div");
-        host.id = "tidy-feedback";
+        host.id = "itk-feedback";
         document.body.appendChild(host);
 
         const shadow = host.attachShadow({ mode: "open" });
@@ -53,48 +53,48 @@ import { t } from "./translations.js";
 
         // Inject widget HTML into shadow DOM
         shadow.innerHTML += `
-            <div class="tidy-feedback">
-                <div hidden class="tidy-feedback-message"
+            <div class="itk-feedback">
+                <div hidden class="itk-feedback-message"
                      style="position:fixed;top:0.5em;left:50%;transform:translateX(-50%);z-index:10002"></div>
-                <div hidden class="tidy-feedback-start">
-                    <button hidden type="button" class="tidy-feedback-start-count">
-                        <span class="tidy-feedback-badge">0</span>
+                <div hidden class="itk-feedback-start">
+                    <button hidden type="button" class="itk-feedback-start-count">
+                        <span class="itk-feedback-badge">0</span>
                     </button>
-                    <button type="button" class="tidy-feedback-start-add"
-                            data-tidy-feedback-action="start"
+                    <button type="button" class="itk-feedback-start-add"
+                            data-itk-feedback-action="start"
                             title="Shift+C">${t("+ Add feedback", locale)}</button>
                 </div>
 
-                <form hidden class="tidy-feedback-form" method="post">
-                    <div hidden class="tidy-feedback-draggable-handle">
+                <form hidden class="itk-feedback-form" method="post">
+                    <div hidden class="itk-feedback-draggable-handle">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
-                    <h1 class="tidy-feedback-form-title">${t("Your feedback", locale)}</h1>
-                    <p class="tidy-feedback-form-lead">${t("Tell us what you noticed on this page", locale)}</p>
+                    <h1 class="itk-feedback-form-title">${t("Your feedback", locale)}</h1>
+                    <p class="itk-feedback-form-lead">${t("Tell us what you noticed on this page", locale)}</p>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-created-by" data-optional-label="${t("(optional)", locale)}">${t("Your email address", locale)}</label>
-                        <input class="form-control" type="email" name="created_by" id="tidy-created-by"
+                        <label class="form-label" for="itk-created-by" data-optional-label="${t("(optional)", locale)}">${t("Your email address", locale)}</label>
+                        <input class="form-control" type="email" name="created_by" id="itk-created-by"
                                placeholder="${t("Your email address", locale)}">
                     </div>
 
                     <div class="form-row mb-3">
-                        <label class="form-label" for="tidy-description" data-optional-label="${t("(optional)", locale)}">${t("Description", locale)}</label>
-                        <textarea class="form-control" name="description" id="tidy-description"
+                        <label class="form-label" for="itk-description" data-optional-label="${t("(optional)", locale)}">${t("Description", locale)}</label>
+                        <textarea class="form-control" name="description" id="itk-description"
                                   placeholder="${t("Describe what happened and what you expected", locale)}"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" title="Ctrl+Enter">${t("Submit feedback", locale)}</button>
-                    <button type="button" class="btn btn-cancel" data-tidy-feedback-action="cancel" title="Escape">${t("Cancel", locale)}</button>
+                    <button type="button" class="btn btn-cancel" data-itk-feedback-action="cancel" title="Escape">${t("Cancel", locale)}</button>
                 </form>
             </div>
         `;
 
         // Create region element OUTSIDE shadow DOM
         const regionContainer = document.createElement("div");
-        regionContainer.id = "tidy-feedback-region";
+        regionContainer.id = "itk-feedback-region";
         regionContainer.hidden = true;
 
         const regionStyle = document.createElement("style");
@@ -148,7 +148,7 @@ import { t } from "./translations.js";
 
         const getElement = (selector) => widget.querySelector(selector);
         const getActionElement = (action) =>
-            getElement(`[data-tidy-feedback-action="${action}"]`);
+            getElement(`[data-itk-feedback-action="${action}"]`);
         const getDocumentElement = (selector) =>
             document.querySelector(selector);
 
@@ -214,10 +214,10 @@ import { t } from "./translations.js";
             renderItemsList: (listOnly) => renderItemsList(ctx, listOnly),
         };
 
-        ctx.form = getElement(".tidy-feedback-form");
-        ctx.start = getElement(".tidy-feedback-start");
-        ctx.startCount = getElement(".tidy-feedback-start-count");
-        ctx.region = getDocumentElement("#tidy-feedback-region > .resizable");
+        ctx.form = getElement(".itk-feedback-form");
+        ctx.start = getElement(".itk-feedback-start");
+        ctx.startCount = getElement(".itk-feedback-start-count");
+        ctx.region = getDocumentElement("#itk-feedback-region > .resizable");
 
         const startAdd = getActionElement("start");
         const cancel = getActionElement("cancel");

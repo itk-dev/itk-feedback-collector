@@ -1,5 +1,5 @@
 export function showMessage(root, config, message, type = null) {
-    const el = root.querySelector(".tidy-feedback-message");
+    const el = root.querySelector(".itk-feedback-message");
     if (el) {
         el.classList.remove("success", "warning", "danger", "select");
 

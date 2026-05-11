@@ -3,18 +3,18 @@ export function renderItemsList(ctx, listOnly = false) {
         return;
     }
 
-    ctx.form.querySelector(".tidy-feedback-items")?.remove();
+    ctx.form.querySelector(".itk-feedback-items")?.remove();
 
     const container = document.createElement("div");
-    container.className = "tidy-feedback-items";
+    container.className = "itk-feedback-items";
 
     const list = document.createElement("ul");
-    list.className = "tidy-feedback-items-list";
+    list.className = "itk-feedback-items-list";
 
     if (!listOnly) {
         const toggle = document.createElement("button");
         toggle.type = "button";
-        toggle.className = "tidy-feedback-items-toggle";
+        toggle.className = "itk-feedback-items-toggle";
         const label =
             ctx.config.messages["Existing feedback"] ?? "Existing feedback";
         toggle.textContent = `${label} (${ctx.feedbackItems.length})`;
@@ -86,7 +86,7 @@ export function refreshFeedbackData(ctx) {
 
             if (ctx.startCount) {
                 const badge = ctx.startCount.querySelector(
-                    ".tidy-feedback-badge",
+                    ".itk-feedback-badge",
                 );
                 if (badge) {
                     badge.textContent = count;
@@ -109,8 +109,8 @@ function setFormFieldsVisibility(form, visible) {
     }
 
     const selectors = [
-        ".tidy-feedback-form-title",
-        ".tidy-feedback-form-lead",
+        ".itk-feedback-form-title",
+        ".itk-feedback-form-lead",
         ".form-row",
         'button[type="submit"]',
         ".btn-cancel",
@@ -134,11 +134,11 @@ export function showItemsPanel(ctx) {
         ctx.form.hidden = false;
         setFormFieldsVisibility(ctx.form, false);
 
-        ctx.form.querySelector(".tidy-feedback-items-header")?.remove();
-        ctx.form.querySelector(".tidy-feedback-items")?.remove();
+        ctx.form.querySelector(".itk-feedback-items-header")?.remove();
+        ctx.form.querySelector(".itk-feedback-items")?.remove();
 
         const header = document.createElement("div");
-        header.className = "tidy-feedback-items-header";
+        header.className = "itk-feedback-items-header";
 
         const title = document.createElement("span");
         const label =
@@ -167,8 +167,8 @@ export function hideItemsPanel(ctx) {
     ctx.itemsPanelMode = false;
 
     if (ctx.form) {
-        ctx.form.querySelector(".tidy-feedback-items-header")?.remove();
-        ctx.form.querySelector(".tidy-feedback-items")?.remove();
+        ctx.form.querySelector(".itk-feedback-items-header")?.remove();
+        ctx.form.querySelector(".itk-feedback-items")?.remove();
         ctx.form.hidden = true;
         setFormFieldsVisibility(ctx.form, true);
     }

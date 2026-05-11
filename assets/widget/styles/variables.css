@@ -1,6 +1,6 @@
 /* General custom properties for use with the Feedback tool */
 :root,
-.tidy-feedback {
+.itk-feedback {
     /* Colors */
     --color-text-light: white;
     --color-text-dark: black;
