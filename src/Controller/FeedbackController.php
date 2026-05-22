@@ -49,6 +49,27 @@ class FeedbackController extends AbstractController
             'website' => $website,
             'apiEndpoint' => $apiEndpoint,
             'feedbacks' => $feedbacks,
+            'activeTab' => 'unhandled',
+            'unhandledCount' => count($feedbacks),
+            'handledCount' => $this->entityFinder->countFeedbackByWebsite($website, handled: true),
+        ]);
+    }
+
+    #[Route('/website/{id}/handled', name: 'app_website_show_handled')]
+    public function showHandled(string $id): Response
+    {
+        $website = $this->entityFinder->findWebsiteOrFail($id);
+
+        $apiEndpoint = $this->generateUrl('app_api_feedback', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $feedbacks = $this->entityFinder->findFeedbackByWebsite($website, handled: true);
+
+        return $this->render('website/show.html.twig', [
+            'website' => $website,
+            'apiEndpoint' => $apiEndpoint,
+            'feedbacks' => $feedbacks,
+            'activeTab' => 'handled',
+            'unhandledCount' => $this->entityFinder->countFeedbackByWebsite($website, handled: false),
+            'handledCount' => count($feedbacks),
         ]);
     }
 
@@ -127,6 +148,32 @@ class FeedbackController extends AbstractController
         }
 
         return $this->redirectToRoute('app_feedback_show', ['id' => $id]);
+    }
+
+    #[Route('/feedback/{id}/archive', name: 'app_feedback_archive', methods: ['POST'])]
+    public function archiveFeedback(string $id): Response
+    {
+        $feedback = $this->entityFinder->findFeedbackOrFail($id);
+
+        $feedback->setHandled(true);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Feedback archived.');
+
+        return $this->redirectToRoute('app_website_show', ['id' => $feedback->getWebsite()->getId()]);
+    }
+
+    #[Route('/feedback/{id}/unarchive', name: 'app_feedback_unarchive', methods: ['POST'])]
+    public function unarchiveFeedback(string $id): Response
+    {
+        $feedback = $this->entityFinder->findFeedbackOrFail($id);
+
+        $feedback->setHandled(false);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Feedback unarchived.');
+
+        return $this->redirectToRoute('app_website_show', ['id' => $feedback->getWebsite()->getId()]);
     }
 
     #[Route('/feedback/{id}/delete', name: 'app_feedback_delete', methods: ['POST'])]

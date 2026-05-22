@@ -35,11 +35,18 @@ class EntityFinder
     }
 
     /** @return Feedback[] */
-    public function findFeedbackByWebsite(Website $website): array
+    public function findFeedbackByWebsite(Website $website, bool $handled = false): array
     {
         return $this->feedbackRepository->findBy(
-            ['website' => $website, 'handled' => false],
+            ['website' => $website, 'handled' => $handled],
             ['createdAt' => 'DESC'],
+        );
+    }
+
+    public function countFeedbackByWebsite(Website $website, bool $handled = false): int
+    {
+        return $this->feedbackRepository->count(
+            ['website' => $website, 'handled' => $handled],
         );
     }
 }
