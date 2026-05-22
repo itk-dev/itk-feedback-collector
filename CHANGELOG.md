@@ -25,3 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Woodpecker CI pipeline for staging deployment
 - Webpack Encore builds for app assets and standalone widget bundle
 - Test site scaffolding tasks for Drupal 11 and Symfony
+- Added archiving for feedback
