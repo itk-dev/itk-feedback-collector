@@ -250,7 +250,11 @@ textarea.form-control {
 .itk-feedback-message.select {
   border: 2px solid transparent;
   background:
-    linear-gradient(var(--itk-feedback-color-primary), var(--itk-feedback-color-primary)) padding-box,
+    linear-gradient(
+        var(--itk-feedback-color-primary),
+        var(--itk-feedback-color-primary)
+      )
+      padding-box,
     conic-gradient(
         from var(--itk-feedback-border-angle, 0deg),
         var(--itk-feedback-color-primary) 10%,
