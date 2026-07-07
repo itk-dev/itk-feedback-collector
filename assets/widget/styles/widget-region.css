@@ -2,7 +2,7 @@
 
 #itk-feedback-region {
   position: absolute;
-  z-index: var(--z-index-region);
+  z-index: var(--itk-feedback-z-index-region);
 }
 
 #itk-feedback-region .resizable {
@@ -12,48 +12,48 @@
 #itk-feedback-region .resizable .resizers {
   width: 100%;
   height: 100%;
-  border: 2px dashed var(--color-primary);
+  border: 2px dashed var(--itk-feedback-color-primary);
   box-sizing: border-box;
   cursor: move;
 }
 
 #itk-feedback-region .resizable .resizer {
-  --resizer-offset: -4px;
+  --itk-feedback-resizer-offset: -4px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: white;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--itk-feedback-color-primary);
   position: absolute;
 }
 
 #itk-feedback-region .resizer.top-left {
-  left: var(--resizer-offset);
-  top: var(--resizer-offset);
+  left: var(--itk-feedback-resizer-offset);
+  top: var(--itk-feedback-resizer-offset);
   cursor: nwse-resize;
 }
 
 #itk-feedback-region .resizer.top-right {
-  right: var(--resizer-offset);
-  top: var(--resizer-offset);
+  right: var(--itk-feedback-resizer-offset);
+  top: var(--itk-feedback-resizer-offset);
   cursor: nesw-resize;
 }
 
 #itk-feedback-region .resizer.bottom-left {
-  left: var(--resizer-offset);
-  bottom: var(--resizer-offset);
+  left: var(--itk-feedback-resizer-offset);
+  bottom: var(--itk-feedback-resizer-offset);
   cursor: nesw-resize;
 }
 
 #itk-feedback-region .resizer.bottom-right {
-  right: var(--resizer-offset);
-  bottom: var(--resizer-offset);
+  right: var(--itk-feedback-resizer-offset);
+  bottom: var(--itk-feedback-resizer-offset);
   cursor: nwse-resize;
 }
 
 #itk-feedback-region .overlays > div {
   position: fixed;
-  background: var(--color-primary);
+  background: var(--itk-feedback-color-primary);
   opacity: 0.1;
   color: transparent;
 }
