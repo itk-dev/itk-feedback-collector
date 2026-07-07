@@ -15,8 +15,8 @@
 .form-control {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--itk-feedback-color-gray-200);
+  border-radius: var(--itk-feedback-radius-sm);
   font-size: 1rem;
   box-sizing: border-box;
   transition: border-color 0.15s ease;
@@ -29,7 +29,7 @@ textarea.form-control {
 
 .form-control:focus {
   outline: none;
-  border-color: var(--color-primary-700);
+  border-color: var(--itk-feedback-color-primary-700);
   box-shadow: 0 0 0 3px hsla(252, 55%, 46%, 0.15);
 }
 
@@ -40,15 +40,15 @@ textarea.form-control {
 /* Widget styles */
 .itk-feedback-start {
   position: fixed;
-  top: var(--position-top);
+  top: var(--itk-feedback-position-top);
   right: 0;
   transform: rotate(-90deg);
   transform-origin: right bottom;
-  z-index: var(--z-index-form);
+  z-index: var(--itk-feedback-z-index-form);
   display: flex;
-  box-shadow: var(--shadow-md);
-  border-top-left-radius: var(--radius-base);
-  border-top-right-radius: var(--radius-base);
+  box-shadow: var(--itk-feedback-shadow-md);
+  border-top-left-radius: var(--itk-feedback-radius-base);
+  border-top-right-radius: var(--itk-feedback-radius-base);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   overflow: hidden;
@@ -61,29 +61,29 @@ textarea.form-control {
 .itk-feedback-start-count,
 .itk-feedback-start-add {
   border: none;
-  color: var(--color-text-light);
+  color: var(--itk-feedback-color-text-light);
   font: inherit;
   font-weight: 500;
-  font-size: var(--font-size-sm);
+  font-size: var(--itk-feedback-font-size-sm);
   letter-spacing: 0.02em;
   cursor: pointer;
-  padding: var(--spacer-sm) var(--spacer-md);
+  padding: var(--itk-feedback-spacer-sm) var(--itk-feedback-spacer-md);
   transition: background-color 0.2s ease;
 }
 
 .itk-feedback-start-count {
-  background-color: var(--color-primary);
-  border-top-left-radius: var(--radius-base);
+  background-color: var(--itk-feedback-color-primary);
+  border-top-left-radius: var(--itk-feedback-radius-base);
 }
 
 .itk-feedback-start-count:hover {
-  background-color: var(--color-primary-300);
+  background-color: var(--itk-feedback-color-primary-300);
 }
 
 .itk-feedback-start-add {
-  background-color: var(--color-primary-300);
+  background-color: var(--itk-feedback-color-primary-300);
   border-left: 1px solid hsla(0, 0%, 100%, 0.2);
-  border-top-right-radius: var(--radius-base);
+  border-top-right-radius: var(--itk-feedback-radius-base);
   font-size: 1em;
   line-height: 1;
 }
@@ -91,11 +91,11 @@ textarea.form-control {
 /* When count button is hidden, give the add button full border-radius */
 .itk-feedback-start-count[hidden] + .itk-feedback-start-add {
   border-left: none;
-  border-top-left-radius: var(--radius-base);
+  border-top-left-radius: var(--itk-feedback-radius-base);
 }
 
 .itk-feedback-start-add:hover {
-  background-color: var(--color-primary);
+  background-color: var(--itk-feedback-color-primary);
 }
 
 .itk-feedback-badge {
@@ -109,7 +109,7 @@ textarea.form-control {
   font-weight: bold;
   line-height: 1;
   color: white;
-  background-color: var(--color-danger-300);
+  background-color: var(--itk-feedback-color-danger-300);
   border-radius: 999px;
 }
 
@@ -118,39 +118,39 @@ textarea.form-control {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: var(--itk-feedback-spacer-sm);
   font-weight: 500;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-dark);
+  font-size: var(--itk-feedback-font-size-sm);
+  color: var(--itk-feedback-color-text-dark);
 }
 
 .itk-feedback-items-header .btn-cancel {
-  padding: var(--spacer-xs) var(--spacer-sm);
+  padding: var(--itk-feedback-spacer-xs) var(--itk-feedback-spacer-sm);
   font-size: 1.4em;
   line-height: 1;
   border: none;
   background: transparent;
   cursor: pointer;
-  color: var(--color-gray-600);
+  color: var(--itk-feedback-color-gray-600);
 }
 
 .itk-feedback-items-header .btn-cancel:hover {
-  color: var(--color-text-dark);
+  color: var(--itk-feedback-color-text-dark);
 }
 
 .itk-feedback-form {
   position: fixed;
-  width: var(--width-base);
+  width: var(--itk-feedback-width-base);
   max-width: 100%;
-  top: var(--position-top);
+  top: var(--itk-feedback-position-top);
   right: 0;
   padding: 2em 1.25em 1.25em;
-  z-index: var(--z-index-form);
+  z-index: var(--itk-feedback-z-index-form);
   background-color: white;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
-  color: var(--color-text-dark);
+  box-shadow: var(--itk-feedback-shadow-lg);
+  border: 1px solid var(--itk-feedback-color-gray-200);
+  border-radius: var(--itk-feedback-radius-lg);
+  color: var(--itk-feedback-color-text-dark);
   overflow: hidden;
   transition:
     border-radius 0.2s ease,
@@ -188,10 +188,10 @@ textarea.form-control {
   width: 100%;
   height: 1em;
   cursor: move;
-  background-color: var(--color-gray-100);
+  background-color: var(--itk-feedback-color-gray-100);
   border: none;
-  border-top-left-radius: var(--radius-base);
-  border-top-right-radius: var(--radius-base);
+  border-top-left-radius: var(--itk-feedback-radius-base);
+  border-top-right-radius: var(--itk-feedback-radius-base);
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -201,7 +201,7 @@ textarea.form-control {
 
 .itk-feedback-draggable-handle span {
   width: 2em;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--itk-feedback-color-border);
 }
 
 .itk-feedback-form-title {
@@ -216,47 +216,51 @@ textarea.form-control {
 
 .itk-feedback-message {
   position: fixed;
-  top: var(--spacer-sm);
+  top: var(--itk-feedback-spacer-sm);
   left: 50%;
   transform: translateX(-50%);
-  padding: var(--spacer-sm) var(--spacer-lg);
-  z-index: var(--z-index-messages);
+  padding: var(--itk-feedback-spacer-sm) var(--itk-feedback-spacer-lg);
+  z-index: var(--itk-feedback-z-index-messages);
   background-color: white;
   color: black;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-base);
-  border-radius: var(--radius-base);
+  border: 1px solid var(--itk-feedback-color-border);
+  box-shadow: var(--itk-feedback-shadow-base);
+  border-radius: var(--itk-feedback-radius-base);
 }
 
 .itk-feedback-message.warning {
-  background-color: var(--color-warning-900);
-  color: var(--color-warning-100);
-  border-color: var(--color-warning-700);
+  background-color: var(--itk-feedback-color-warning-900);
+  color: var(--itk-feedback-color-warning-100);
+  border-color: var(--itk-feedback-color-warning-700);
 }
 
 .itk-feedback-message.success {
-  background-color: var(--color-success-900);
-  color: var(--color-success-100);
-  border-color: var(--color-success-700);
+  background-color: var(--itk-feedback-color-success-900);
+  color: var(--itk-feedback-color-success-100);
+  border-color: var(--itk-feedback-color-success-700);
 }
 
 .itk-feedback-message.danger {
-  background-color: var(--color-danger-900);
-  color: var(--color-danger-100);
-  border-color: var(--color-danger-700);
+  background-color: var(--itk-feedback-color-danger-900);
+  color: var(--itk-feedback-color-danger-100);
+  border-color: var(--itk-feedback-color-danger-700);
 }
 
 /* Animated border for the select-mode "Click an element" message */
 .itk-feedback-message.select {
   border: 2px solid transparent;
   background:
-    linear-gradient(var(--color-primary), var(--color-primary)) padding-box,
+    linear-gradient(
+        var(--itk-feedback-color-primary),
+        var(--itk-feedback-color-primary)
+      )
+      padding-box,
     conic-gradient(
-        from var(--border-angle, 0deg),
-        var(--color-primary) 10%,
+        from var(--itk-feedback-border-angle, 0deg),
+        var(--itk-feedback-color-primary) 10%,
         white 20%,
-        var(--color-primary-300) 30%,
-        var(--color-primary) 90%
+        var(--itk-feedback-color-primary-300) 30%,
+        var(--itk-feedback-color-primary) 90%
       )
       border-box;
   color: white;
@@ -265,14 +269,14 @@ textarea.form-control {
 
 @keyframes rotate-border {
   to {
-    --border-angle: 360deg;
+    --itk-feedback-border-angle: 360deg;
   }
 }
 
 .itk-feedback-items {
-  margin-top: var(--spacer-md);
-  border-top: 1px solid var(--color-gray-200);
-  padding-top: var(--spacer-sm);
+  margin-top: var(--itk-feedback-spacer-md);
+  border-top: 1px solid var(--itk-feedback-color-gray-200);
+  padding-top: var(--itk-feedback-spacer-sm);
 }
 
 button.itk-feedback-items-toggle[type="button"] {
@@ -281,17 +285,17 @@ button.itk-feedback-items-toggle[type="button"] {
   background: transparent;
   border: none;
   border-radius: 0;
-  color: var(--color-gray-600);
-  font-size: var(--font-size-sm);
+  color: var(--itk-feedback-color-gray-600);
+  font-size: var(--itk-feedback-font-size-sm);
   font-weight: 500;
-  padding: var(--spacer-xs) 0;
+  padding: var(--itk-feedback-spacer-xs) 0;
   cursor: pointer;
 }
 
 button.itk-feedback-items-toggle[type="button"]::before {
   content: "\25B6";
   display: inline-block;
-  margin-right: var(--spacer-xs);
+  margin-right: var(--itk-feedback-spacer-xs);
   font-size: 0.6em;
   transition: transform 0.2s ease;
 }
@@ -302,14 +306,14 @@ button.itk-feedback-items-toggle[type="button"].open::before {
 
 button.itk-feedback-items-toggle[type="button"]:hover,
 button.itk-feedback-items-toggle[type="button"]:active {
-  color: var(--color-text-dark);
+  color: var(--itk-feedback-color-text-dark);
   background-color: transparent;
   border: none;
 }
 
 .itk-feedback-items-list {
   list-style: none;
-  margin: var(--spacer-xs) 0 0;
+  margin: var(--itk-feedback-spacer-xs) 0 0;
   padding: 0;
   max-height: 12em;
   overflow-y: auto;
@@ -319,32 +323,32 @@ button.itk-feedback-items-toggle[type="button"]:active {
 }
 
 .itk-feedback-items-list li {
-  border-radius: var(--radius-sm);
+  border-radius: var(--itk-feedback-radius-sm);
 }
 
 .itk-feedback-items-list a {
   display: block;
-  padding: var(--spacer-xs) 0;
-  color: var(--color-gray-700);
+  padding: var(--itk-feedback-spacer-xs) 0;
+  color: var(--itk-feedback-color-gray-700);
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: var(--font-size-sm);
+  font-size: var(--itk-feedback-font-size-sm);
 }
 
 .itk-feedback-items-list a:hover {
-  color: var(--color-primary);
+  color: var(--itk-feedback-color-primary);
 }
 
 .form-label {
   font-weight: bold;
-  font-size: var(--font-size-sm);
+  font-size: var(--itk-feedback-font-size-sm);
 }
 
 .form-row:not(.required) label::after {
   margin-left: 10px;
   content: attr(data-optional-label);
-  color: var(--color-gray-500);
+  color: var(--itk-feedback-color-gray-500);
   font-weight: normal;
 }

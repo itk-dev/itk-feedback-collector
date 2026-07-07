@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Namespaced widget CSS custom properties so they no longer override the host
+  page's styles ([#7](https://github.com/itk-dev/itk-feedback-collector/issues/7))
+
 ## [1.0.0] - 2026-05-06
 
 ### Added

@@ -133,7 +133,7 @@ import { t } from "./translations.js";
     // Try to register CSS custom property for animated border
     try {
       CSS.registerProperty({
-        name: "--border-angle",
+        name: "--itk-feedback-border-angle",
         syntax: "<angle>",
         inherits: false,
         initialValue: "0deg",
