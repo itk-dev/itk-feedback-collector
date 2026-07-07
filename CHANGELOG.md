@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Widget CSS custom properties no longer leak into the host page and override
+  site colors — all properties are now namespaced with `--itk-feedback-` and
+  scoped to the widget containers instead of `:root` ([#7](https://github.com/itk-dev/itk-feedback-collector/issues/7))
+
 ## [1.0.0] - 2026-05-06
 
 ### Added
