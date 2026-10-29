@@ -81,7 +81,7 @@ class LeantimeService
      *
      * @throws \RuntimeException if the website has no Leantime project configured
      */
-    public function createIssue(Feedback $feedback): int
+    public function createIssue(Feedback $feedback): null
     {
         $website = $feedback->getWebsite();
         $projectId = $website->getLeantimeProjectId();
