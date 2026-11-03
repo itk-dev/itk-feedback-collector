@@ -33,6 +33,15 @@
                     <button type="button" class="bg-primary text-paper px-4 py-2 rounded-2 text-sm font-medium no-underline border-none opacity-50 cursor-not-allowed" disabled title="{{ 'No Leantime project configured'|trans }}">{{ 'Create change request'|trans }}</button>
                 {% endif %}
             {% endif %}
+            {% if not feedback.handled %}
+                <form method="post" action="{{ path('app_feedback_archive', {id: feedback.id}) }}">
+                    <button type="submit" class="bg-warning text-paper px-4 py-2 rounded-2 text-sm font-medium cursor-pointer border-none hover:bg-warning-hover">{{ 'Archive'|trans }}</button>
+                </form>
+            {% else %}
+                <form method="post" action="{{ path('app_feedback_unarchive', {id: feedback.id}) }}">
+                    <button type="submit" class="bg-warning text-paper px-4 py-2 rounded-2 text-sm font-medium cursor-pointer border-none hover:bg-warning-hover">{{ 'Unarchive'|trans }}</button>
+                </form>
+            {% endif %}
             <form method="post" action="{{ path('app_feedback_delete', {id: feedback.id}) }}"
                   onsubmit="return confirm('{{ 'Delete this feedback?'|trans }}')">
                 <button type="submit" class="bg-error text-paper px-4 py-2 rounded-2 text-sm font-medium cursor-pointer border-none hover:opacity-80">{{ 'Delete'|trans }}</button>

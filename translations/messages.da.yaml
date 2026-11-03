@@ -53,6 +53,7 @@
 "Create change request": "Opret ændringsønske"
 "Creating…": "Opretter…"
 "No Leantime project configured": "Intet Leantime-projekt konfigureret"
+"Archive": "Arkivér"
 "No FreeScout mailbox configured": "Ingen FreeScout-postkasse konfigureret"
 "FreeScout Mailbox": "FreeScout-postkasse"
 "-- None --": "-- Ingen --"
@@ -70,5 +71,11 @@
 "Add a note for this feedback...": "Tilføj en note til denne feedback..."
 "Note saved.": "Note gemt."
 
+# Tabs
+"Unhandled": "Ubehandlet"
+
 # Flash messages
+"Feedback archived.": "Feedback arkiveret."
+"Unarchive": "Fjern arkivering"
+"Feedback unarchived.": "Feedback fjernet fra arkiv."
 "Feedback deleted.": "Feedback slettet."
